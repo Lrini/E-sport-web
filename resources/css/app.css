@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Gradient backgrounds */
+.gradient-hero {
+    background: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(142, 76%, 36%) 100%);
+}
+
+.gradient-card {
+    background: linear-gradient(135deg, hsl(217, 91%, 60%, 0.05) 0%, hsl(27, 96%, 61%, 0.05) 100%);
+}
+
+/* Toast notification styles */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slide-in-right 0.3s ease-out;
+}
+
+@keyframes slide-in-right {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
