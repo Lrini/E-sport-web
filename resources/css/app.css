@@ -23,8 +23,24 @@
     z-index: 1000;
     animation: slide-in-right 0.3s ease-out;
 }
+.toast.success {
+    border-left: 4px solid hsl(142, 76%, 36%);
+}
+        
+.toast.error {
+    border-left: 4px solid hsl(0, 84%, 60%);
+}
 
 @keyframes slide-in-right {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
+}
+.error-message {
+    color: hsl(0, 84%, 60%);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+        
+.input-error {
+    border-color: hsl(0, 84%, 60%) !important;
 }

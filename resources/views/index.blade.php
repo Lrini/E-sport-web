@@ -1,43 +1,23 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-</head>
-<body class="min-h-screen bg-[hsl(210,100%,97%)]">
-  <!--navbar-->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-    <div class="container px-4 py-4 mx-auto">
-      <div class="flex items-center justify-between">
-          <h1 class="text-2xl font-bold bg-gradient-to-r from-[hsl(217,91%,60%)] to-[hsl(142,76%,36%)] bg-clip-text text-transparent">E-Sport School</h1>
-          <div class="flex gap-4">
-            <a href="#" class="px-4 py-2 font-medium text-teal-600 ">Home</a>
-            <a href="#" class="px-4 py-2 font-medium text-teal-600 ">Register as athlete</a>
-            <a href="#" class="px-4 py-2 font-medium text-teal-600 ">Register as support</a>
-          </div>
-      </div>
-    </div>
-  </nav>
-  <!--navbar-->
-   <main class="pt-20">
+@extends('layouts.main')
+
+   @section('section')
         <!-- Hero Banner -->
         <section class="py-32 text-white gradient-hero animate-fade-in">
             <div class="container px-4 mx-auto text-center">
                 <h2 class="mb-6 text-5xl font-bold md:text-6xl animate-scale-in">
-                    School Sports Competition 2025
+                    School Sports Competition 2026
                 </h2>
                 <p class="max-w-3xl mx-auto mb-8 text-xl md:text-2xl animate-slide-up">
-                    Join us for an exciting showcase of athletic talent! Register now as an athlete or spectator.
+                    Join us for an exciting showcase of athletic talent! <br> Register now as an athlete or support
                 </p>
                 
                 <!-- Call-to-Action Buttons -->
                 <div class="flex flex-col justify-center gap-4 sm:flex-row animate-slide-up">
-                    <a href="participant.html" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
+                    <a href="/participant" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
                         Register as Athlete
                     </a>
-                    <a href="spectator.html" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
-                        Register as Spectator
+                    <a href="/spectator" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
+                        Register as Support
                     </a>
                 </div>
             </div>
@@ -54,7 +34,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-[hsl(222,47%,11%)]">Event Dates</h3>
-                    <p class="text-[hsl(215,16%,47%)]">March 15-17, 2025</p>
+                    <p class="text-[hsl(215,16%,47%)]">March 15-17, 2026</p>
                 </div>
                 
                 <!-- Venue Card -->
@@ -153,16 +133,13 @@
                     Don't miss out on this exciting event! Register now as an athlete or secure your spot as a spectator.
                 </p>
                 <div class="flex flex-col justify-center gap-4 sm:flex-row">
-                    <a href="participant.html" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold hover:scale-105 transition-transform">
+                    <a href="/participant" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold hover:scale-105 transition-transform">
                         Athlete Registration
                     </a>
-                    <a href="spectator.html" class="px-8 py-4 bg-[hsl(27,96%,61%)] text-white rounded-lg font-semibold hover:scale-105 transition-transform border-2 border-white">
-                        Spectator Registration
+                    <a href="/spectator" class="px-8 py-4  bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold hover:scale-105 transition-transform border-2 border-white">
+                        Support Registration
                     </a>
                 </div>
             </div>
         </section>
-    </main>
-  
-</body>
-</html>
+    @endsection
