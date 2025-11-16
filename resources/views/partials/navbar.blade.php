@@ -5,7 +5,7 @@
           <div class="flex gap-4">
             <a href="/" class="px-4 py-2 font-medium text-teal-600 ">Home</a>
             <a href="/participant" class="px-4 py-2 font-medium text-teal-600 ">Register as athlete</a>
-            <a href="#" class="px-4 py-2 font-medium text-teal-600 ">Register as support</a>
+            <a href="/support" class="px-4 py-2 font-medium text-teal-600 ">Register as support</a>
           </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 @extends('layouts.main')
 @section('section')
 
-<div class="container mx-auto px-4 max-w-4xl">
+<div class="container max-w-4xl px-4 mx-auto">
             
             <!-- Page Header -->
-            <div class="text-center mb-12">
+            <div class="mb-12 text-center">
                 <h2 class="text-4xl font-bold mb-4 text-[hsl(222,47%,11%)]">Athlete Registration</h2>
                 <p class="text-lg text-[hsl(215,16%,47%)]">
                     Register to compete in the Sports Competition 2026
@@ -12,7 +12,7 @@
             </div>
             
             <!-- Registration Form -->
-            <div class="bg-white rounded-xl shadow-lg p-8">
+            <div class="p-8 bg-white shadow-lg rounded-xl">
                  <!-- Important Information Section -->
                 <div class="mt-8 mb-4 p-6 bg-[hsl(210,40%,96%)] rounded-lg">
                     <h3 class="font-semibold text-[hsl(222,47%,11%)] mb-3">Important Information</h3>
@@ -39,7 +39,7 @@
                             placeholder="Enter your full name"
                             required
                         >
-                        <div class="error-message hidden" id="fullName-error"></div>
+                        <div class="hidden error-message" id="fullName-error"></div>
                     </div>
                     
                     <!-- Grade/Class Field -->
@@ -55,7 +55,7 @@
                             placeholder="e.g., Grade 10, Class A"
                             required
                         >
-                        <div class="error-message hidden" id="grade-error"></div>
+                        <div class="hidden error-message" id="grade-error"></div>
                     </div>
                     
                     <!-- Sport Selection Field -->
@@ -76,7 +76,7 @@
                             <option value="athletics">Athletics</option>
                             <option value="badminton">Badminton</option>
                         </select>
-                        <div class="error-message hidden" id="sport-error"></div>
+                        <div class="hidden error-message" id="sport-error"></div>
                     </div>
                     
                     <!-- Contact Number Field -->
@@ -92,7 +92,7 @@
                             placeholder="Enter your contact number"
                             required
                         >
-                        <div class="error-message hidden" id="contactNumber-error"></div>
+                        <div class="hidden error-message" id="contactNumber-error"></div>
                     </div>
                     
                     <!-- Parent Consent Checkbox -->
@@ -109,7 +109,7 @@
                                 I confirm that I have obtained parent/guardian consent to participate in this event *
                             </span>
                         </label>
-                        <div class="error-message hidden ml-8" id="parentConsent-error"></div>
+                        <div class="hidden ml-8 error-message" id="parentConsent-error"></div>
                     </div>
                     
                     <!-- Submit Button -->
