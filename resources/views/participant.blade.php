@@ -17,11 +17,11 @@
                 <div class="mt-8 mb-4 p-6 bg-[hsl(210,40%,96%)] rounded-lg">
                     <h3 class="font-semibold text-[hsl(222,47%,11%)] mb-3">Important Information</h3>
                     <ul class="space-y-2 text-sm text-[hsl(215,16%,47%)]">
-                        <li>• All participants must have valid student ID cards</li>
-                        <li>• Parent/guardian consent is mandatory for participants under 18</li>
-                        <li>• Medical certificates may be required for certain sports</li>
-                        <li>• Registration closes on March 10, 2025</li>
-                        <li>• You will receive a confirmation email after successful registration</li>
+                        <li>• Setiap pendaftaran lomba diwakilkan oleh penanggung jawab tim lomba</li>
+                        <li>• Setiap lomba mempunyai biaya yang berbeda, mohon untuk lebih memperhatikan dalam mengisi form pendaftaran</li>
+                        <li>• Pemberian medali dan piagam akan diberikan pada hari puncak acara yang akan diinformasikan oleh panitia</li>
+                        <li>• Setiap informasi mengenai lomba akan diinformasikan via whatsapp</li>
+                        <li>• Jika pendaftaran berhasil akan segera mendaptkan konfirmasi via whatsapp</li>
                     </ul>
                 </div>
                 <form id="participant-form" novalidate>

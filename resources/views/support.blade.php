@@ -11,14 +11,13 @@
              <div class="p-8 bg-white shadow-lg rounded-xl">
                  <!-- Important Information Section -->
                 <div class="mt-8 mb-2 p-6 bg-[hsl(210,40%,96%)] rounded-lg">
-                    <h3 class="font-semibold text-[hsl(222,47%,11%)] mb-3">Spectator Guidelines</h3>
+                    <h3 class="font-semibold text-[hsl(222,47%,11%)] mb-3">Support Guidelines</h3>
                     <ul class="space-y-2 text-sm text-[hsl(215,16%,47%)]">
-                        <li>• Entry is free for all registered spectators</li>
-                        <li>• Please arrive at least 30 minutes before event start time</li>
-                        <li>• Seating is available on a first-come, first-served basis</li>
-                        <li>• Food and beverages are available at the venue</li>
-                        <li>• Please follow all safety guidelines and respect the athletes</li>
-                        <li>• You will receive a confirmation email with event schedule</li>
+                        <li>• Mohon memberikan informasi yang jelas saat mengisi form pembelian</li>
+                        <li>• Setiap tiket pembelian hanya berlaku dihari yang dipesan</li>
+                        <li>• Pembelian tiket diluar makanan dan minuman </li>
+                        <li>• Harga tiket untuk masing - masing lomba berbeda, mohon untuk teliti sebelum pemesanan.</li>
+                        <li>• Tiket hanya berlaku untuk satu orang dan tidak diwakilkan </li>
                     </ul>
                 </div>
                 <form id="spectator-form" novalidate>
