@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeserta extends Migration
+class CreateAcara extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreatePeserta extends Migration
      */
     public function up()
     {
-        Schema::create('peserta', function (Blueprint $table) {
+        Schema::create('acara', function (Blueprint $table) {
             $table->id();
             $table->integer('uuid')->unique();
-            $table->string('penganggung_jawab');
-            $table->string('nama_sekolah');
             $table->integer('id_lomba');
-            $table->string('image')->nullable();
-            
+            $table->date('tanngal_acara');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreatePeserta extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peserta');
+        Schema::dropIfExists('acara');
     }
 }
