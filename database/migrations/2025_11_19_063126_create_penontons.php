@@ -1,10 +1,10 @@
-<?php
+_<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLomba extends Migration
+class CreatePenontons extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateLomba extends Migration
      */
     public function up()
     {
-        Schema::create('lomba', function (Blueprint $table) {
+        Schema::create('penontons', function (Blueprint $table) {
             $table->id();
             $table->integer('uuid')->unique();
-            $table->string('nama_lomba');
-            $table->text('deskripsi_lomba');
+            $table->string('nama_lengkap');
+            $table->string('asal_sekolah');
+            $table->integer('id_lomba');
+            $table->string('image')->nullable();
+            $table->integer('id_acara');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateLomba extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lomba');
+        Schema::dropIfExists('penonton');
     }
 }

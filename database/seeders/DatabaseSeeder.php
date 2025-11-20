@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\acara;
+use App\Models\grade;
+use App\Models\lomba;
+use App\Models\penonton;
+use App\Models\peserta;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        peserta::factory(10)->create();
+        penonton::factory(10)->create();
+        acara::factory(10)->create();
+        grade::factory(4)->create();
+        lomba::factory(4)->create();
+
     }
 }

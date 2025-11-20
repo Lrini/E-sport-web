@@ -1,10 +1,10 @@
-_<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePenonton extends Migration
+class CreatePesertas extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePenonton extends Migration
      */
     public function up()
     {
-        Schema::create('penonton', function (Blueprint $table) {
+        Schema::create('pesertas', function (Blueprint $table) {
             $table->id();
             $table->integer('uuid')->unique();
-            $table->string('nama_lengkap');
-            $table->string('asal_sekolah');
+            $table->string('penanggung_jawab');
+            $table->string('nama_sekolah');
             $table->integer('id_lomba');
             $table->string('image')->nullable();
-            $table->integer('id_acara');
+
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreatePenonton extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penonton');
+        Schema::dropIfExists('peserta');
     }
 }

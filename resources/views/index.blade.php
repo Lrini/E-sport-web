@@ -64,7 +64,7 @@
         
         <!-- Available Sports Section -->
         <section class="container px-4 py-16 mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-12 text-[hsl(222,47%,11%)]">Available Sports</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 text-[hsl(222,47%,11%)]">Available Competion</h2>
             
             <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
                 <!-- Futsal -->

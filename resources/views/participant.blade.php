@@ -5,9 +5,9 @@
             
             <!-- Page Header -->
             <div class="mb-12 text-center">
-                <h2 class="text-4xl font-bold mb-4 text-[hsl(222,47%,11%)]">Athlete Registration</h2>
+                <h2 class="text-4xl font-bold mb-4 text-[hsl(222,47%,11%)]">Participant Registration</h2>
                 <p class="text-lg text-[hsl(215,16%,47%)]">
-                    Register to compete in the Sports Competition 2026
+                    Register to compete in the Sports Competion 2026
                 </p>
             </div>
             
@@ -24,8 +24,8 @@
                         <li>• Jika pendaftaran berhasil akan segera mendaptkan konfirmasi via whatsapp</li>
                     </ul>
                 </div>
-                <form id="participant-form" novalidate>
-                    
+                <form method="post" action="/participant" enctype="multipart/form-data">
+                    @csrf
                     <!-- Full Name Field -->
                     <div class="mb-6">
                         <label for="fullName" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
@@ -61,7 +61,7 @@
                     <!-- Sport Selection Field -->
                     <div class="mb-6">
                         <label for="sport" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Sport *
+                            Competion *
                         </label>
                         <select 
                             id="sport" 
@@ -69,7 +69,7 @@
                             class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
                             required
                         >
-                            <option value="">Select a sport</option>
+                            <option value="">Select a campetion</option>
                             <option value="futsal">Futsal</option>
                             <option value="basketball">Basketball</option>
                             <option value="volleyball">Volleyball</option>
@@ -93,23 +93,6 @@
                             required
                         >
                         <div class="hidden error-message" id="contactNumber-error"></div>
-                    </div>
-                    
-                    <!-- Parent Consent Checkbox -->
-                    <div class="mb-8">
-                        <label class="flex items-start gap-3 cursor-pointer">
-                            <input 
-                                type="checkbox" 
-                                id="parentConsent" 
-                                name="parentConsent"
-                                class="mt-1 w-5 h-5 border-2 border-[hsl(214,32%,91%)] rounded focus:ring-2 focus:ring-[hsl(217,91%,60%)] text-[hsl(217,91%,60%)]"
-                                required
-                            >
-                            <span class="text-sm text-[hsl(222,47%,11%)]">
-                                I confirm that I have obtained parent/guardian consent to participate in this event *
-                            </span>
-                        </label>
-                        <div class="hidden ml-8 error-message" id="parentConsent-error"></div>
                     </div>
                     
                     <!-- Submit Button -->
