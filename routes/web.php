@@ -18,8 +18,11 @@ Route::get('/', function () {
 });
 
 Route::get('/participant', function () {
-    return view('participant');
+    $lombas = \App\Models\lomba::all();
+    return view('participant', compact('lombas'));
 });
+
+Route::post('/participant', 'App\Http\Controllers\PesertaPostController@store');
 
 Route::get('/support', function () {
     return view('support');

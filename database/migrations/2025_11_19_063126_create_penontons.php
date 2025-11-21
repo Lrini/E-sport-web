@@ -20,6 +20,7 @@ class CreatePenontons extends Migration
             $table->string('asal_sekolah');
             $table->integer('id_lomba');
             $table->string('image')->nullable();
+            $table->string('no_hp');
             $table->integer('id_acara');
             $table->timestamps();
         });

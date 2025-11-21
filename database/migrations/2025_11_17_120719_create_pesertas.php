@@ -18,6 +18,7 @@ class CreatePesertas extends Migration
             $table->integer('uuid')->unique();
             $table->string('penanggung_jawab');
             $table->string('nama_sekolah');
+            $table->string('no_hp');
             $table->integer('id_lomba');
             $table->string('image')->nullable();
 

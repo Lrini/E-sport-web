@@ -10,7 +10,14 @@
                     Register to compete in the Sports Competion 2026
                 </p>
             </div>
-            
+            @if (session()->has('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 relative" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3 text-green-700 hover:text-green-900" onclick="this.parentElement.style.display='none'" aria-label="Close">
+                        &times;
+                    </button>
+                </div>
+            @endif
             <!-- Registration Form -->
             <div class="p-8 bg-white shadow-lg rounded-xl">
                  <!-- Important Information Section -->
@@ -26,73 +33,106 @@
                 </div>
                 <form method="post" action="/participant" enctype="multipart/form-data">
                     @csrf
-                    <!-- Full Name Field -->
+                    <!-- penanggung jawab Field -->
                     <div class="mb-6">
-                        <label for="fullName" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Full Name *
+                        <label for="penanggung_jawab" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Penanggung jawab *
                         </label>
-                        <input 
-                            type="text" 
-                            id="fullName" 
-                            name="fullName"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
-                            placeholder="Enter your full name"
+                        <input
+                            type="text"
+                            id="penanggung_jawab"
+                            name="penanggung_jawab"
+                            class="w-full px-4 py-3 border-2 @error('penanggung_jawab') border-red-500 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                            placeholder="Nama penanggung jawab tim"
                             required
                         >
-                        <div class="hidden error-message" id="fullName-error"></div>
+                         @error('penanggung_jawab')
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ $message }}
+                            </div>
+                         @enderror
                     </div>
                     
-                    <!-- Grade/Class Field -->
+                    <!-- Nama sekolah field -->
                     <div class="mb-6">
-                        <label for="grade" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Grade/Class *
+                        <label for="nama_sekolah" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Nama sekolah *
                         </label>
-                        <input 
-                            type="text" 
-                            id="grade" 
-                            name="grade"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
-                            placeholder="e.g., Grade 10, Class A"
+                        <input
+                            type="text"
+                            id="nama_sekolah"
+                            name="nama_sekolah"
+                            class="w-full px-4 py-3 border-2 @error('nama_sekolah') border-red-500 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                            placeholder="Masukan nama sekolah "
                             required
                         >
-                        <div class="hidden error-message" id="grade-error"></div>
+                         @error('nama_sekolah')
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ $message }}
+                            </div>
+                         @enderror
                     </div>
                     
                     <!-- Sport Selection Field -->
                     <div class="mb-6">
-                        <label for="sport" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                        <label for="id_lomba" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
                             Competion *
                         </label>
-                        <select 
-                            id="sport" 
-                            name="sport"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                        <select
+                            id="id_lomba"
+                            name="id_lomba"
+                            class="form-control @error('id_lomba') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
                             required
                         >
                             <option value="">Select a campetion</option>
-                            <option value="futsal">Futsal</option>
-                            <option value="basketball">Basketball</option>
-                            <option value="volleyball">Volleyball</option>
-                            <option value="athletics">Athletics</option>
-                            <option value="badminton">Badminton</option>
+                            @foreach($lombas as $lomba)
+                                <option value="{{ $lomba->id }}">{{ $lomba->nama_lomba }}</option>
+                            @endforeach
                         </select>
-                        <div class="hidden error-message" id="sport-error"></div>
+                            @error('id_lomba')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                     </div>
                     
                     <!-- Contact Number Field -->
                     <div class="mb-6">
-                        <label for="contactNumber" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                        <label for="no_hp" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
                             Contact Number *
                         </label>
-                        <input 
-                            type="tel" 
-                            id="contactNumber" 
-                            name="contactNumber"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                        <input
+                            type="tel"
+                            id="no_hp"
+                            name="no_hp"
+                            class="w-full px-4 py-3 border-2 @error('no_hp') border-red-500 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
                             placeholder="Enter your contact number"
                             required
                         >
-                        <div class="hidden error-message" id="contactNumber-error"></div>
+                            @error('no_hp')
+                                <div class="text-red-500 text-sm mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                    </div>
+                    
+                    <!-- Image Upload Field -->
+                    <div class="mb-6">
+                        <label for="image" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Bukti pembayaran 
+                        </label>
+                        <input 
+                            type="file" 
+                            id="image" 
+                            name="image"
+                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                            accept="image/*"
+                        >
+                         @error('image')
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ $message }}
+                            </div>
+                            @enderror
                     </div>
                     
                     <!-- Submit Button -->
@@ -106,4 +146,20 @@
                 </form>
             </div>
         </div>
+<script>
+     function previewImage(event) {
+        const image = document.querySelector('#image');
+
+        const file = image.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            imgPreview.src = e.target.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
 @endsection

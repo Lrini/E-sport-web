@@ -5,6 +5,22 @@ module.exports = {
     "./resources/**/*.js",
     "./resources/**/*.vue",
   ],
+  safelist: [
+    'bg-green-100',
+    'border',
+    'border-green-400',
+    'text-green-700',
+    'px-4',
+    'py-3',
+    'rounded-lg',
+    'mb-6',
+    'relative',
+    'absolute',
+    'top-0',
+    'bottom-0',
+    'right-0',
+    'hover:text-green-900',
+  ],
   theme: {
     extend: {
       colors: {

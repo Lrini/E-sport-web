@@ -19,6 +19,7 @@ class PenontonFactory extends Factory
             'asal_sekolah' => $this->faker->company(),
             'id_lomba' => 1,
             'id_acara' => 1,
+            'no_hp' => $this->faker->phoneNumber(),
         ];
     }
 }

@@ -10,7 +10,15 @@ use App\Models\lomba;
 class peserta extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+
+    protected $fillable = [
+        'penanggung_jawab',
+        'nama_sekolah',
+        'id_lomba',
+        'no_hp',
+        'uuid',
+        'image',
+    ];
 
     public function lomba()
     {
