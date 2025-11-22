@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\lomba;
+use App\Models\acara;
+use App\Http\Controllers\PesertaPostController;
+use App\Http\Controllers\PenontonPostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,12 +21,17 @@ Route::get('/', function () {
 });
 
 Route::get('/participant', function () {
-    $lombas = \App\Models\lomba::all();
-    return view('participant', compact('lombas'));
+    $lombas = lomba::all();
+    $acaras = acara::all();
+    return view('participant', compact('lombas', 'acaras'));
 });
 
-Route::post('/participant', 'App\Http\Controllers\PesertaPostController@store');
+Route::post('/participant', [PesertaPostController::class, 'store']);
 
 Route::get('/support', function () {
-    return view('support');
+    $lombas = lomba::all();
+    $acaras = acara::all();
+    return view('support', compact('lombas', 'acaras'));
 });
+
+Route::post('/support', [PenontonPostController::class, 'store']);

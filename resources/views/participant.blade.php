@@ -42,8 +42,9 @@
                             type="text"
                             id="penanggung_jawab"
                             name="penanggung_jawab"
-                            class="w-full px-4 py-3 border-2 @error('penanggung_jawab') border-red-500 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors {{ $errors->has('penanggung_jawab') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-500' }}"
                             placeholder="Nama penanggung jawab tim"
+                            value="{{ old('penanggung_jawab') }}"
                             required
                         >
                          @error('penanggung_jawab')
@@ -62,8 +63,9 @@
                             type="text"
                             id="nama_sekolah"
                             name="nama_sekolah"
-                            class="w-full px-4 py-3 border-2 @error('nama_sekolah') border-red-500 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors {{ $errors->has('nama_sekolah') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-500' }}"
                             placeholder="Masukan nama sekolah "
+                            value="{{ old('nama_sekolah') }}"
                             required
                         >
                          @error('nama_sekolah')
@@ -105,8 +107,9 @@
                             type="tel"
                             id="no_hp"
                             name="no_hp"
-                            class="w-full px-4 py-3 border-2 @error('no_hp') border-red-500 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors {{ $errors->has('no_hp') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-500' }}"
                             placeholder="Enter your contact number"
+                            value="{{ old('no_hp') }}"
                             required
                         >
                             @error('no_hp')

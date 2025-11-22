@@ -1,13 +1,21 @@
 @extends('layouts.main')
 @section('section')
-<div class="container max-w-4xl px-4 mx-auto">
-     <!-- Page Header -->
-            <div class="mb-12 text-center">
-                <h2 class="text-4xl font-bold mb-4 text-[hsl(222,47%,11%)]">Spectator Registration</h2>
-                <p class="text-lg text-[hsl(215,16%,47%)]">
-                    Come and support our athletes at the Sports Competition 2025
-                </p>
-            </div>
+<div class="container max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto pt-24 pb-8">
+    <!-- Page Header -->
+    <div class="mb-12 text-center mt-12">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[hsl(222,47%,11%)] break-words">Spectator Registration</h2>
+        <p class="text-base sm:text-lg text-[hsl(215,16%,47%)] break-words px-2">
+            Come and support our athletes at the Sports Competition 2025
+        </p>
+    </div>
+            @if (session()->has('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 relative" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3 text-green-700 hover:text-green-900" onclick="this.parentElement.style.display='none'" aria-label="Close">
+                        &times;
+                    </button>
+                </div>
+            @endif
              <div class="p-8 bg-white shadow-lg rounded-xl">
                  <!-- Important Information Section -->
                 <div class="mt-8 mb-2 p-6 bg-[hsl(210,40%,96%)] rounded-lg">
@@ -20,73 +28,127 @@
                         <li>• Tiket hanya berlaku untuk satu orang dan tidak diwakilkan </li>
                     </ul>
                 </div>
-                <form id="spectator-form" novalidate>
-                    
+                <form method="post" action="/support" enctype="multipart/form-data">
+                 @csrf
                     <!-- Full Name Field -->
                     <div class="mb-6">
-                        <label for="fullName" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Full Name *
+                        <label for="nama_lengkap" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Nama Lengkap *
                         </label>
                         <input 
                             type="text" 
-                            id="fullName" 
-                            name="fullName"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(27,96%,61%)] transition-colors"
-                            placeholder="Enter your full name"
+                            id="nama_lengkap" 
+                            name="nama_lengkap"
+                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors {{ $errors->has('nama_lengkap') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[hsl(27,96%,61%)]' }}"
+                            placeholder="Masukan nama lengkap anda"
+                            value="{{ old('nama_lengkap') }}"
                             required
                         >
-                        <div class="hidden error-message" id="fullName-error"></div>
+                        @error('nama_lengkap')
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ $message }}
+                            </div>
+                         @enderror
                     </div>
                     
-                    <!-- Grade/Role Field -->
+                    <!-- asal sekolah Field -->
                     <div class="mb-6">
                         <label for="grade" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Grade/Class or Role *
+                            Asal sekolah *
                         </label>
                         <input 
                             type="text" 
-                            id="grade" 
-                            name="grade"
+                            id="asal_sekolah" 
+                            name="asal_sekolah"
                             class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(27,96%,61%)] transition-colors"
-                            placeholder="e.g., Grade 10, Parent, Teacher"
+                            placeholder="Masukan asal sekolah anda"
                             required
                         >
                         <div class="hidden error-message" id="grade-error"></div>
                     </div>
                     
-                    <!-- Contact Number Field -->
+                    <!-- Sport Selection Field -->
                     <div class="mb-6">
-                        <label for="contactNumber" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Contact Number *
+                        <label for="id_lomba" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Competion *
                         </label>
-                        <input 
-                            type="tel" 
-                            id="contactNumber" 
-                            name="contactNumber"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(27,96%,61%)] transition-colors"
-                            placeholder="Enter your contact number"
+                        <select
+                            id="id_lomba"
+                            name="id_lomba"
+                            class="form-control @error('id_lomba') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
                             required
                         >
-                        <div class="hidden error-message" id="contactNumber-error"></div>
+                            <option value="">Select a campetion</option>
+                            @foreach($lombas as $lomba)
+                                <option value="{{ $lomba->id }}">{{ $lomba->nama_lomba }}</option>
+                            @endforeach
+                        </select>
+                            @error('id_lomba')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                     </div>
                     
-                    <!-- Viewing Date Field -->
-                    <div class="mb-8">
-                        <label for="viewingDate" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Preferred Viewing Date *
+                    <!-- Date support Selection Field -->
+                    <div class="mb-6">
+                        <label for="tanggal_acara" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Competion date *
                         </label>
-                        <select 
-                            id="viewingDate" 
-                            name="viewingDate"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(27,96%,61%)] transition-colors"
-                            required>
-                            <option value="">Select a date</option>
-                            <option value="2025-03-15">March 15, 2025 (Day 1)</option>
-                            <option value="2025-03-16">March 16, 2025 (Day 2)</option>
-                            <option value="2025-03-17">March 17, 2025 (Day 3)</option>
-                            <option value="all">All Days</option>
+                        <select
+                            id="tanggal_acara"
+                            name="tanggal_acara"
+                            class="form-control @error('tanggal_acara') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                            required
+                            disabled
+                        >
+                            <option value="">Select a competition first</option>
                         </select>
-                        <div class="hidden error-message" id="viewingDate-error"></div>
+                            @error('tanggal_acara')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                    </div>
+                    
+                    <!-- Contact Number Field -->
+                    <div class="mb-6">
+                        <label for="no_hp" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Contact Number *
+                        </label>
+                        <input
+                            type="tel"
+                            id="no_hp"
+                            name="no_hp"
+                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors {{ $errors->has('no_hp') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-500' }}"
+                            placeholder="Enter your contact number"
+                            value="{{ old('no_hp') }}"
+                            required
+                        >
+                            @error('no_hp')
+                                <div class="text-red-500 text-sm mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                    </div>
+                    
+                    <!-- Image Upload Field -->
+                    <div class="mb-6">
+                        <label for="image" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Bukti pembayaran 
+                        </label>
+                        <input 
+                            type="file" 
+                            id="image" 
+                            name="image"
+                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                            accept="image/*"
+                        >
+                         @error('image')
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ $message }}
+                            </div>
+                            @enderror
                     </div>
                      <!-- Submit Button -->
                       <button 
@@ -99,4 +161,49 @@
                 </form>
             </div>
 </div>
-@endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // const acarasData digunakan untuk menyimpan data acaras dari server ke dalam variabel JavaScript
+    // Data ini diambil dari variabel PHP $acaras yang di-encode ke format JSON sehiggaa bisa digunakan di JavaScript
+    const acarasData = @json($acaras);
+    
+    // Mendapatkan referensi ke elemen dropdown lomba dan tanggal acara
+    const lombaSelect = document.getElementById('id_lomba');
+    const tanggalAcaraSelect = document.getElementById('tanggal_acara');
+    
+    // Menambahkan event listener untuk perubahan pada dropdown lomba
+    lombaSelect.addEventListener('change', function() {
+        const selectedLombaId = this.value;
+        
+        // Reset dropdown tanggal acara
+        tanggalAcaraSelect.innerHTML = '<option value="">Select a competition date</option>';
+        
+        if (selectedLombaId) {
+            // Filter data acaras berdasarkan lomba yang dipilih
+            const filteredAcaras = acarasData.filter(acara => acara.id_lomba == selectedLombaId);
+            
+            if (filteredAcaras.length > 0) {
+                // Enable tanggal acara dropdown
+                tanggalAcaraSelect.disabled = false;
+                
+                // Menambahkan opsi tanggal acara yang sesuai ke dropdown
+                filteredAcaras.forEach(acara => {
+                    const option = document.createElement('option');
+                    option.value = acara.id;
+                    option.textContent = acara.tanggal_acara;
+                    tanggalAcaraSelect.appendChild(option);
+                });
+            } else {
+                // Jika tidak ada acara untuk lomba yang dipilih, disable dropdown tanggal acara
+                tanggalAcaraSelect.disabled = true;
+                tanggalAcaraSelect.innerHTML = '<option value="">No dates available for this competition</option>';
+            }
+        } else {
+            // Jika tidak ada lomba yang dipilih, disable dropdown tanggal acara
+            tanggalAcaraSelect.disabled = true;
+            tanggalAcaraSelect.innerHTML = '<option value="">Select a competition first</option>';
+        }
+    });
+});
+</script>
