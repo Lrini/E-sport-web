@@ -35,3 +35,8 @@ Route::get('/support', function () {
 });
 
 Route::post('/support', [PenontonPostController::class, 'store']);
+
+use App\Http\Controllers\AdminLoginController;
+
+Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login.form');
+Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
