@@ -35,7 +35,7 @@ class PenontonPostController extends Controller
 
         // Handle file upload if present
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('bukti_pembayaran', 'public');
+            $imagePath = $request->file('image')->store('bukti_tonton', 'public');
             $validatedData['image'] = $imagePath;
         }
 

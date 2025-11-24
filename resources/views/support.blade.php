@@ -1,13 +1,14 @@
 @extends('layouts.main')
 @section('section')
-<div class="container max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto pt-24 pb-8">
+<div class="container max-w-4xl px-4 mx-auto pt-20">
+
     <!-- Page Header -->
-    <div class="mb-12 text-center mt-12">
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[hsl(222,47%,11%)] break-words">Spectator Registration</h2>
-        <p class="text-base sm:text-lg text-[hsl(215,16%,47%)] break-words px-2">
-            Come and support our athletes at the Sports Competition 2025
-        </p>
-    </div>
+            <div class="mb-12 text-center">
+                <h2 class="text-4xl font-bold mb-4 text-[hsl(222,47%,11%)]">Support Registration</h2>
+                <p class="text-lg text-[hsl(215,16%,47%)]">
+                    Register to compete in the Sports Competion 2026
+                </p>
+            </div>
             @if (session()->has('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 relative" role="alert">
                     {{ session('success') }}
@@ -160,9 +161,8 @@
                     </button>
                 </form>
             </div>
-</div>
 
-<script>
+            <script>
 document.addEventListener('DOMContentLoaded', function() {
     // const acarasData digunakan untuk menyimpan data acaras dari server ke dalam variabel JavaScript
     // Data ini diambil dari variabel PHP $acaras yang di-encode ke format JSON sehiggaa bisa digunakan di JavaScript
@@ -207,3 +207,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+</div>
