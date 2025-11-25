@@ -20,7 +20,6 @@ module.exports = {
     'bottom-0',
     'right-0',
     'hover:text-green-900',
-    'text-red-500',
   ],
   theme: {
     extend: {
@@ -67,3 +66,4 @@ module.exports = {
   },
   plugins: [],
 }
+

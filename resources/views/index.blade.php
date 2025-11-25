@@ -16,7 +16,7 @@
                     <a href="/participant" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
                         Register as Athlete
                     </a>
-                    <a href="/spectator" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
+                    <a href="/support" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
                         Register as Support
                     </a>
                 </div>
@@ -136,7 +136,7 @@
                     <a href="/participant" class="px-8 py-4 bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold hover:scale-105 transition-transform">
                         Athlete Registration
                     </a>
-                    <a href="/spectator" class="px-8 py-4  bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold hover:scale-105 transition-transform border-2 border-white">
+                    <a href="/support" class="px-8 py-4  bg-white text-[hsl(217,91%,60%)] rounded-lg font-semibold hover:scale-105 transition-transform border-2 border-white">
                         Support Registration
                     </a>
                 </div>
