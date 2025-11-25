@@ -13,7 +13,22 @@ class AdminLoginController extends Controller
      */
     public function showLoginForm()
     {
+        if (auth()->check()) {
+            return redirect()->intended('/admin/dashboard');
+        }
         return view('admin.login.login');
+    }
+
+    /**
+     * Logout the admin user.
+     */
+    public function logout()
+    {
+        auth()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()->route('admin.login.form');
     }
 
     /**
@@ -22,7 +37,7 @@ class AdminLoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ]);
 
@@ -35,7 +50,7 @@ class AdminLoginController extends Controller
         }
 
         throw ValidationException::withMessages([
-            'username' => __('auth.failed'),
+            'email' => __('auth.failed'),
         ]);
     }
 }

@@ -17,26 +17,25 @@
         </div>
         
         <!-- Login Form -->
-        <form id="admin-login-form" class="space-y-6">
-          
+        <form method="post" action="/admin/login" enctype="multipart/form-data">
+          @csrf
           <!-- Username Field -->
-          <div class="space-y-2">
-            <label for="username" class="block text-sm font-medium text-foreground">
-              Username
+          <div class="space-y-2 mb-4">
+            <label for="email" class="block text-sm font-medium text-foreground">
+              Email
             </label>
             <input 
               type="text" 
-              id="username" 
-              name="username"
+              id="email" 
+              name="email"
               class="w-full px-4 py-3 bg-background border border-input rounded-md text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-ring transition-all"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
               required
             >
-            <p class="text-sm text-red-500 hidden" id="username-error"></p>
           </div>
           
           <!-- Password Field -->
-          <div class="space-y-2">
+          <div class="space-y-2 mb-4">
             <label for="password" class="block text-sm font-medium text-foreground">
               Password
             </label>
@@ -48,7 +47,6 @@
               placeholder="Enter your password"
               required
             >
-            <p class="text-sm text-red-500 hidden" id="password-error"></p>
           </div>
           
           <!-- Submit Button -->

@@ -7,6 +7,7 @@ use App\Models\grade;
 use App\Models\lomba;
 use App\Models\penonton;
 use App\Models\peserta;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,6 @@ class DatabaseSeeder extends Seeder
         acara::factory(10)->create();
         grade::factory(4)->create();
         lomba::factory(4)->create();
-
+        User::factory(1)->create();
     }
 }
