@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\lomba;
 use App\Models\acara;
+use App\Models\grade;
 use App\Http\Controllers\PesertaPostController;
 use App\Http\Controllers\PenontonPostController;
 /*
@@ -23,7 +24,8 @@ Route::get('/', function () {
 Route::get('/participant', function () {
     $lombas = lomba::all();
     $acaras = acara::all();
-    return view('participant', compact('lombas', 'acaras'));
+    $grades = grade::all();
+    return view('participant', compact('lombas', 'acaras', 'grades'));
 });
 
 Route::post('/participant', [PesertaPostController::class, 'store']);

@@ -22,6 +22,9 @@ class CreatePenontons extends Migration
             $table->string('image')->nullable();
             $table->string('no_hp');
             $table->integer('id_acara');
+            $table->integer('biaya_tiket');
+            $status = ['pending', 'lunas', 'batal'];
+            $table->enum('status_pembayaran', $status)->default('pending');
             $table->timestamps();
         });
     }

@@ -74,6 +74,29 @@
                             </div>
                          @enderror
                     </div>
+
+                     <!-- Grade Selection Field -->
+                    <div class="mb-6">
+                        <label for="id_grade" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Tingkat *
+                        </label>
+                        <select
+                            id="id_grade"
+                            name="id_grade"
+                            class="form-control @error('id_grade') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                            required
+                        >
+                            <option value="">Select a tingkat</option>
+                            @foreach($grades as $grade)
+                                <option value="{{ $grade->id }}">{{ $grade->tingkat }}</option>
+                            @endforeach
+                        </select>
+                            @error('id_grade')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                    </div>
                     
                     <!-- Sport Selection Field -->
                     <div class="mb-6">

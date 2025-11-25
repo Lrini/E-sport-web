@@ -18,6 +18,7 @@ class CreateLombas extends Migration
             $table->integer('uuid')->unique();
             $table->string('nama_lomba');
             $table->text('deskripsi_lomba');
+            $table->integer('biaya_daftar');
             $table->timestamps();
         });
     }

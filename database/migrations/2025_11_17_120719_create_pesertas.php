@@ -20,8 +20,10 @@ class CreatePesertas extends Migration
             $table->string('nama_sekolah');
             $table->string('no_hp');
             $table->integer('id_lomba');
+            $table->integer('id_grade');
             $table->string('image')->nullable();
-
+            $status = ['pending', 'lunas', 'batal'];
+             $table->enum('status_pembayaran', $status)->default('pending');
             $table->timestamps();
         });
     }

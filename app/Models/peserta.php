@@ -18,6 +18,7 @@ class peserta extends Model
         'no_hp',
         'uuid',
         'image',
+        'id_grade',
     ];
 
     public function lomba()

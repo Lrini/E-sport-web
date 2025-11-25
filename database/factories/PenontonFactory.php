@@ -19,7 +19,9 @@ class PenontonFactory extends Factory
             'asal_sekolah' => $this->faker->company(),
             'id_lomba' => 1,
             'id_acara' => 1,
+            'biaya_tiket' => $this->faker->numberBetween(10000, 50000),
             'no_hp' => $this->faker->numerify('08##########'),
+            'status_pembayaran' => 'pending',
         ];
     }
 }

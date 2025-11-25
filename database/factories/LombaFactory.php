@@ -17,6 +17,7 @@ class LombaFactory extends Factory
             'uuid' => $this->faker->unique()->numberBetween(1, 1000000),
             'nama_lomba' => $this->faker->word(),
             'deskripsi_lomba' => $this->faker->sentence(),
+            'biaya_daftar' => $this->faker->numberBetween(50000, 200000),
         ];
     }
 }

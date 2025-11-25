@@ -18,7 +18,9 @@ class PesertaFactory extends Factory
             'nama_sekolah' => $this->faker->company(),
             'penanggung_jawab' => $this->faker->name(),
             'id_lomba' => 1,
+            'id_grade' => 1,
             'no_hp' => $this->faker->numerify('08##########'),
+            'status_pembayaran' => 'pending',
         ];
     }
 }

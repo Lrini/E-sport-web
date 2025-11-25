@@ -18,6 +18,7 @@ class PesertaPostController extends Controller
             'id_lomba' => 'required|integer|exists:lombas,id',
             'no_hp' => 'required|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'id_grade' => 'required|integer|exists:grades,id',
         ]);
 
         // Generate a unique uuid
