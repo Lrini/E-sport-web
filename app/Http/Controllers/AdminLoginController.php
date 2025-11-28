@@ -45,8 +45,8 @@ class AdminLoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Redirect to intended admin dashboard or default page
-            return redirect()->intended('/admin/dashboard');
+            // Always redirect to admin dashboard after login
+            return redirect('/admin/dashboard');
         }
 
         throw ValidationException::withMessages([

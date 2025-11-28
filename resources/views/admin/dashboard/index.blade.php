@@ -52,6 +52,26 @@
         .gradient-card {
             background: linear-gradient(135deg, hsl(217, 91%, 60%, 0.05) 0%, hsl(27, 96%, 61%, 0.05) 100%);
         }
+
+        /* Override Tailwind hidden class for modals by using custom is-hidden */
+        .is-hidden {
+            display: none !important;
+            pointer-events: none !important;
+            visibility: hidden !important;
+        }
+        /* Show modal as fixed grid container */
+        .modal-visible {
+            display: grid !important;
+            pointer-events: auto !important;
+            visibility: visible !important;
+            background-color: rgba(30, 41, 59, 0.5) !important; /* Semi-transparent background overlay */
+        }
+        /* Modal form container background white */
+        #participant-modal > div,
+        #spectator-modal > div,
+        #view-modal > div {
+            background-color: white !important;
+        }
     </style>
 </head>
 
@@ -60,11 +80,20 @@
     <!-- Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
 
+    <!-- Mobile Menu Toggle -->
+    <button id="mobile-menu-toggle"
+        class="fixed top-4 left-4 z-50 lg:hidden bg-primary text-white p-2 rounded-md shadow-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
+
     <!-- Layout Container -->
     <div class="flex min-h-screen">
 
         <!-- Left Sidebar -->
-        <aside class="gradient-hero w-64 shadow-2xl flex flex-col">
+        <aside id="sidebar"
+            class="gradient-hero w-64 shadow-2xl hidden lg:flex lg:flex-col fixed lg:static inset-y-0 left-0 z-40">
             <!-- Logo/Title -->
             <div class="p-6 border-b border-white/10">
                 <h1 class="text-xl font-bold text-white">Admin Dashboard</h1>
@@ -110,8 +139,8 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 bg-background overflow-auto">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main class="flex-1 bg-background overflow-auto w-full lg:w-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16 lg:pt-8">
 
                 <!-- Stats Overview -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -294,7 +323,7 @@
     </div>
 
     <!-- Participant Modal (Create/Edit) -->
-    <div id="participant-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div id="participant-modal" class="fixed inset-0 bg-black/50 z-50 p-4 hidden grid place-items-center">
         <div
             class="gradient-card rounded-lg border border-border shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div class="px-6 py-4 border-b border-border flex items-center justify-between sticky top-0 gradient-card">
@@ -392,7 +421,7 @@
     </div>
 
     <!-- Spectator Modal (Create/Edit) -->
-    <div id="spectator-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+<div id="spectator-modal" class="fixed inset-0 bg-black/50 z-50 p-4 hidden grid place-items-center" style="display: none;">
         <div
             class="gradient-card rounded-lg border border-border shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div class="px-6 py-4 border-b border-border flex items-center justify-between sticky top-0 gradient-card">
@@ -470,7 +499,7 @@
     </div>
 
     <!-- View Details Modal -->
-    <div id="view-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div id="view-modal" class="fixed inset-0 bg-black/50 z-50 p-4 hidden grid place-items-center">
         <div class="gradient-card rounded-lg border border-border shadow-2xl max-w-2xl w-full">
             <div class="px-6 py-4 border-b border-border flex items-center justify-between">
                 <h2 id="view-modal-title" class="text-xl font-semibold text-foreground">Registration Details</h2>
@@ -489,8 +518,102 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="js/app.js"></script>
-    <script src="js/admin-dashboard.js"></script>
+    <script>
+        // Modal utility functions
+        function showModal(modal) {
+            if (modal) {
+                modal.classList.remove('is-hidden');
+                modal.classList.add('modal-visible');
+            }
+        }
+        
+        function hideModal(modal) {
+            if (modal) {
+                modal.classList.remove('modal-visible');
+                modal.classList.add('is-hidden');
+            }
+        }
+        
+        function initModal(modalId, openBtnId, closeBtnId, cancelBtnId) {
+            const modal = document.getElementById(modalId);
+            const openBtn = document.getElementById(openBtnId);
+            const closeBtn = closeBtnId ? document.getElementById(closeBtnId) : null;
+            const cancelBtn = cancelBtnId ? document.getElementById(cancelBtnId) : null;
+        
+            // Open modal button
+            if (openBtn) {
+                openBtn.addEventListener('click', () => {
+                    showModal(modal);
+                });
+            }
+        
+            // Close button inside modal
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    hideModal(modal);
+                });
+            }
+        
+            // Cancel button inside modal (usually for forms)
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', () => {
+                    hideModal(modal);
+                });
+            }
+        
+            // Click outside modal content closes modal
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        hideModal(modal);
+                    }
+                });
+            }
+        }
+        
+        // Close modal with Escape key
+        function setupEscapeKey() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") {
+                    const modals = document.querySelectorAll('.fixed.inset-0.bg-black\\/50.z-50.p-4:not(.is-hidden)');
+                    modals.forEach(modal => hideModal(modal));
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize participant modal
+            initModal('participant-modal', 'add-participant-btn', 'close-participant-modal', 'cancel-participant');
+        
+            // Initialize spectator modal
+            initModal('spectator-modal', 'add-spectator-btn', 'close-spectator-modal', 'cancel-spectator');
+        
+            // Initialize view details modal
+            initModal('view-modal', null, 'close-view-modal', null);
+        
+            // Setup Escape key handler for all modals
+            setupEscapeKey();
+        });
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth < 1024) {
+                if (!sidebar.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                    sidebar.classList.add('hidden');
+                }
+            }
+        });
+    </script>
 
 </body>
 

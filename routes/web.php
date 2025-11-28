@@ -17,11 +17,15 @@ use App\Http\Controllers\PenontonPostController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// route untuk halaman utama
 Route::get('/', function () {
     return view('index');
 });
 
+
+// route untuk halaman participant
+//$lombas, acaras, grades diambil dari database menggunakan model lomba, acara, grade dan dikirim ke view participant menggunakan compact
+//tujuannya agar data dari database bisa ditampilkan di halaman participant
 Route::get('/participant', function () {
     $lombas = lomba::all();
     $acaras = acara::all();
@@ -29,21 +33,26 @@ Route::get('/participant', function () {
     return view('participant', compact('lombas', 'acaras', 'grades'));
 });
 
+//route untuk mengirim data participant ke database menggunakan controller PesertaPostController
 Route::post('/participant', [PesertaPostController::class, 'store']);
 
+// route untuk halaman support
 Route::get('/support', function () {
     $lombas = lomba::all();
     $acaras = acara::all();
     return view('support', compact('lombas', 'acaras'));
 });
 
+//route untuk mengirim data support ke database menggunakan controller PenontonPostController
 Route::post('/support', [PenontonPostController::class, 'store']);
 
+// Admin Authentication Routes
+// Menambahkan route untuk menampilkan form login admin, proses login, dan logout
+//showLoginForm, login, dan logout mengacu pada method di AdminLoginController
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login.form');
 Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout')->middleware('isadmin');
 
-Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
-
-Route::middleware('auth')->group(function () {
-    Route::view('/admin/dashboard', 'admin.dashboard.index')->name('admin.dashboard');
-});
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard.index');
+})->name('admin.dashboard')->middleware('isadmin');
