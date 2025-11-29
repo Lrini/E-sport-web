@@ -29,6 +29,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // hidden digunakan untuk menyembunyikan field password dan remember_token saat data user diambil
     protected $hidden = [
         'password',
         'remember_token',
@@ -39,6 +40,7 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+    // casts digunakan untuk mengubah tipe data field email_verified_at menjadi datetime
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

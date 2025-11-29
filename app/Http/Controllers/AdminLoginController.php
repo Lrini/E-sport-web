@@ -10,9 +10,10 @@ class AdminLoginController extends Controller
 {
     /**
      * Show the admin login form.
-     */
+     **/
     public function showLoginForm()
     {
+        //auth()->check() digunakan untuk memeriksa apakah admin sudah login
         if (auth()->check()) {
             return redirect()->intended('/admin/dashboard');
         }
@@ -24,6 +25,8 @@ class AdminLoginController extends Controller
      */
     public function logout()
     {
+        //season invalidate digunakan untuk menghapus session yang sedang aktif
+        //season regenerateToken digunakan untuk menghindari serangan CSRF
         auth()->logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
@@ -33,9 +36,10 @@ class AdminLoginController extends Controller
 
     /**
      * Handle a login request to the application.
-     */
+     **/
     public function login(Request $request)
     {
+        // Validate the incoming request data
         $credentials = $request->validate([
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],

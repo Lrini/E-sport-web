@@ -24,6 +24,6 @@ class DatabaseSeeder extends Seeder
         acara::factory(10)->create();
         grade::factory(4)->create();
         lomba::factory(4)->create();
-        User::factory(1)->create();
+        User::factory(2)->create();
     }
 }

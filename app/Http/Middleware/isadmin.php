@@ -14,6 +14,7 @@ class isAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
+    // fungsi ini memeriksa apakah user yang mengakses adalah admin
     public function handle(Request $request, Closure $next)
     {
         if (!auth()->check() || auth()->user()->role !== 'admin') { // Check if user is logged in and has admin role

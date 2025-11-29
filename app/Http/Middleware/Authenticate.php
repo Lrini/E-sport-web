@@ -12,6 +12,7 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
+    // fungsi ini mengarahkan user yang belum login ke halaman login admin
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {

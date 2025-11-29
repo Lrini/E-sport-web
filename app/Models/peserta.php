@@ -11,6 +11,7 @@ class peserta extends Model
 {
     use HasFactory;
 
+    // guarded digunakan untuk melindungi field id agar tidak bisa diisi secara massal
     protected $fillable = [
         'penanggung_jawab',
         'nama_sekolah',
@@ -21,6 +22,7 @@ class peserta extends Model
         'id_grade',
     ];
 
+    // relasi many to one antara peserta dan lomba
     public function lomba()
     {
         return $this->belongsTo(lomba::class, 'id_lomba', 'id');

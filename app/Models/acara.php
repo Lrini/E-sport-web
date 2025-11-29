@@ -9,9 +9,9 @@ use App\Models\lomba;
 class acara extends Model
 {
     use HasFactory;
-
+    // guarded digunakan untuk melindungi field id agar tidak bisa diisi secara massal
      protected $guarded = ['id'];
-
+    // relasi many to one antara acara dan lomba
     public function lomba()
     {
         return $this->belongsTo(lomba::class, 'id_lomba', 'id');
