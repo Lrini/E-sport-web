@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Intramurals 2025</title>
+    <title>Admin Dashboard</title>
     <meta name="description" content="Admin dashboard for managing Intramurals 2025 registrations">
 
     <!-- Tailwind CSS CDN -->
@@ -95,7 +95,7 @@
         <!-- Main Content -->
         <main class="flex-1 bg-background overflow-auto w-full lg:w-auto">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16 lg:pt-8">
-                @include('admin.dashboard.partials.overview')
+               
                 <!-- Tabs -->
 
                 <!-- Participants Table -->
