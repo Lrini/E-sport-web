@@ -19,7 +19,7 @@
                     </a>
                 </div>
 
-                <a href="index.html"
+                <a href="/admin/dashboard/acara"
                         class="flex items-center space-x-3 text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg transition-all group">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

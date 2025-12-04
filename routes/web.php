@@ -56,3 +56,10 @@ Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('adm
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard.index');
 })->name('admin.dashboard')->middleware('isadmin');
+
+
+// Resource routes for managing 'acara' in the admin dashboard
+Route::get('admin/dashboard/acara', [App\Http\Controllers\AcaraPostController::class, 'index'])->name('acara.index')->middleware('isadmin');
+Route::get('admin/dashboard/acara/data', [App\Http\Controllers\AcaraPostController::class, 'getdata'])->name('acara.data')->middleware('isadmin');
+Route::post('admin/dashboard/acara/create', [App\Http\Controllers\AcaraPostController::class, 'store'])->name('acara.store')->middleware('isadmin');
+
