@@ -56,7 +56,7 @@
             <div class="flex gap-3 pt-4">
                 <button type="submit"
                     class="flex-1 gradient-hero text-white font-semibold py-3 px-6 rounded-md hover:opacity-90 transition-opacity">
-                    Simpan Acara
+                    Save
                 </button>
                 <button type="button" id="cancel-acara"
                     class="px-6 py-3 border border-border rounded-md text-foreground hover:bg-muted/20 transition-colors">

@@ -26,10 +26,10 @@ class AdminLoginTest extends TestCase
     public function test_login_fails_with_invalid_credentials()
     {
         $response = $this->post('/admin/login', [
-            'username' => 'wronguser',
+            'email' => 'wrong@example.com',
             'password' => 'wrongpass',
         ]);
-        $response->assertSessionHasErrors('username');
+        $response->assertSessionHasErrors('email');
     }
 
     /**
@@ -38,12 +38,12 @@ class AdminLoginTest extends TestCase
     public function test_login_succeeds_with_valid_credentials()
     {
         $user = User::factory()->create([
-            'username' => 'admin',
+            'email' => 'admin@example.com',
             'password' => bcrypt('admin123'),
         ]);
 
         $response = $this->post('/admin/login', [
-            'username' => 'admin',
+            'email' => 'admin@example.com',
             'password' => 'admin123',
         ]);
 

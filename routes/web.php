@@ -51,18 +51,13 @@ Route::post('/support', [PenontonPostController::class, 'store']);
 //showLoginForm, login, dan logout mengacu pada method di AdminLoginController
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login.form');
 Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
-Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout')->middleware('isadmin');
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout')->middleware('auth');
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard.index');
-})->name('admin.dashboard')->middleware('isadmin');
+})->name('admin.dashboard')->middleware('auth');
 
 
 // Resource routes for managing 'acara' in the admin dashboard
-Route::get('admin/dashboard/acara', [App\Http\Controllers\AcaraPostController::class, 'index'])->name('acara.index')->middleware('isadmin');
-Route::get('admin/dashboard/acara/data', [App\Http\Controllers\AcaraPostController::class, 'getdata'])->name('acara.data')->middleware('isadmin');
-Route::post('admin/dashboard/acara/create', [App\Http\Controllers\AcaraPostController::class, 'store'])->name('acara.store')->middleware('isadmin');
-Route::get('admin/dashboard/acara/{id}/update', [App\Http\Controllers\AcaraPostController::class, 'edit'])->name('acara.edit')->middleware('isadmin');
-Route::put('admin/dashboard/acara/{id}', [App\Http\Controllers\AcaraPostController::class, 'update'])->name('admin.acara.update')->middleware('isadmin');
-Route::delete('admin/dashboard/acara/{id}', [App\Http\Controllers\AcaraPostController::class, 'destroy'])->name('acara.destroy')->middleware('isadmin');
-
+Route::get('admin/dashboard/acara/data', [App\Http\Controllers\AcaraPostController::class, 'getdata'])->name('acara.data')->middleware('auth');
+Route::resource('admin/dashboard/acara', App\Http\Controllers\AcaraPostController::class)->middleware('auth');

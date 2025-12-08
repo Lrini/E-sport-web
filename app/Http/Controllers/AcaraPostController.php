@@ -123,11 +123,7 @@ class AcaraPostController extends Controller
      */
     public function destroy(acara $acara)
     {
-        if ($acara) {
-            $acara->delete();
-            return redirect()->route('acara.index')->with('success', 'Acara berhasil dihapus.');
-        } else {
-            return redirect()->route('acara.index')->with('error', 'Acara tidak ditemukan.');
-        }
+        acara::destroy($acara->id);
+        return redirect()->route('acara.index')->with('success', 'Acara berhasil dihapus.');
     }
 }

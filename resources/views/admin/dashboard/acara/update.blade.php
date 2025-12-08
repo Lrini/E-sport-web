@@ -7,7 +7,7 @@
         <p class="text-sm opacity-90">Perbarui informasi acara lomba</p>
     </div>
     <div class="p-6">
-        <form action="{{ route('admin.acara.update', $acara->id) }}" method="POST" class="space-y-6">
+        <form action="{{ route('acara.update', $acara->id) }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')
             <div>
