@@ -23,11 +23,10 @@ class AcaraPostController extends Controller
     {
         $acaras = acara::with('lomba')->get()->map(function ($acara) {
             return [
+                'id' => $acara->id,
                 'nama_acara' => $acara->nama_acara,
                 'tanggal_acara' => $acara->tanggal_acara,
                 'keterangan' => $acara->keterangan,
-                'update' => '', // Placeholder for update button
-                'delete' => '', // Placeholder for delete button
             ];
         });
         return response()->json(['data' => $acaras]);
@@ -85,24 +84,35 @@ class AcaraPostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\acara  $acara
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(acara $acara)
+    public function edit($id)
     {
-        //
+        $acara = acara::findOrFail($id);
+        return view('admin.dashboard.acara.update', compact('acara'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\acara  $acara
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, acara $acara)
+    public function update(Request $request, $id)
     {
-        //
+        $acara = acara::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'nama_acara' => 'required|string|max:255',
+            'tanggal_acara' => 'required|date',
+            'keterangan' => 'required|string|max:255',
+        ]);
+
+        $acara->update($validatedData);
+
+        return redirect()->route('acara.index')->with('success', 'Acara berhasil diperbarui.');
     }
 
     /**
@@ -113,6 +123,11 @@ class AcaraPostController extends Controller
      */
     public function destroy(acara $acara)
     {
-        //
+        if ($acara) {
+            $acara->delete();
+            return redirect()->route('acara.index')->with('success', 'Acara berhasil dihapus.');
+        } else {
+            return redirect()->route('acara.index')->with('error', 'Acara tidak ditemukan.');
+        }
     }
 }

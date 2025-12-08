@@ -26,11 +26,11 @@
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">{{ old('keterangan', $acara->keterangan) }}</textarea>    
             </div>
             <div class="flex justify-end space-x-4">
-                <a href="{{ route('admin.acara.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200">
+                <a href="{{ route('acara.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200">
                     Batal
                 </a>
                 <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200">
-                    Perbarui Acara
+                    Save
                 </button>
             </div>
         </form>

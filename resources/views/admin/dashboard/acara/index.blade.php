@@ -151,12 +151,16 @@ $(function() {
                 render: function(data, type, row) {
                     return `
                         <div class="flex space-x-2 justify-center">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200" href="admin/acara/${row.id}/update">
+                            <a class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200" href="/admin/dashboard/acara/${row.id}/update">
                                 Update
-                            </button>
-                            <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">
-                                Delete
-                            </button>
+                            </a>
+                            <form action="/admin/dashboard/acara/${row.id}" method="POST" style="display: inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus acara ini?')">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">
+                                    Delete
+                                </button>
+                            </form>
                         </div>
                     `;
                 }

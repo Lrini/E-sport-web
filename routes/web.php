@@ -62,4 +62,7 @@ Route::get('/admin/dashboard', function () {
 Route::get('admin/dashboard/acara', [App\Http\Controllers\AcaraPostController::class, 'index'])->name('acara.index')->middleware('isadmin');
 Route::get('admin/dashboard/acara/data', [App\Http\Controllers\AcaraPostController::class, 'getdata'])->name('acara.data')->middleware('isadmin');
 Route::post('admin/dashboard/acara/create', [App\Http\Controllers\AcaraPostController::class, 'store'])->name('acara.store')->middleware('isadmin');
+Route::get('admin/dashboard/acara/{id}/update', [App\Http\Controllers\AcaraPostController::class, 'edit'])->name('acara.edit')->middleware('isadmin');
+Route::put('admin/dashboard/acara/{id}', [App\Http\Controllers\AcaraPostController::class, 'update'])->name('admin.acara.update')->middleware('isadmin');
+Route::delete('admin/dashboard/acara/{id}', [App\Http\Controllers\AcaraPostController::class, 'destroy'])->name('acara.destroy')->middleware('isadmin');
 
