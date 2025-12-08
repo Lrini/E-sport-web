@@ -10,9 +10,21 @@
             </button>
         </div>
 
-        <form id="acara-form" action="{{ route('acara.store') }}" method="POST" class="p-6 space-y-4 bg-white">
+        <form class="p-6 space-y-4 bg-white " method="post" action="{{ route('acara.store') }}"
+            enctype="multipart/form-data">
             @csrf
 
+            <!--Input for Lomba ID -->
+            <label for="id_lomba" class="block text-sm font-medium text-foreground mb-2">nama Lomba *</label>
+            <select id="id_lomba" name="id_lomba"
+                class="form-control @error('id_lomba') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                required>
+                <option value="">Select a campetion</option>
+                @foreach ($lombas as $lomba)
+                    <option value="{{ $lomba->id }}">{{ $lomba->nama_lomba }}</option>
+                @endforeach
+            </select>
+            
             <!-- Nama Acara -->
             <div>
                 <label for="nama_acara" class="block text-sm font-medium text-foreground mb-2">Nama Acara *</label>
@@ -23,7 +35,8 @@
 
             <!-- Tanggal Acara -->
             <div>
-                <label for="tanggal_acara" class="block text-sm font-medium text-foreground mb-2">Tanggal Acara *</label>
+                <label for="tanggal_acara" class="block text-sm font-medium text-foreground mb-2">Tanggal Acara
+                    *</label>
                 <input type="date" id="tanggal_acara" name="tanggal_acara" required
                     class="w-full px-4 py-3 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                 <p class="text-sm text-red-500 hidden mt-1" id="tanggal_acara-error"></p>
@@ -31,18 +44,22 @@
 
             <!-- Lokasi Acara -->
             <div>
-                <label for="lokasi_acara" class="block text-sm font-medium text-foreground mb-2">Lokasi Acara *</label>
-                <input type="text" id="lokasi_acara" name="lokasi_acara" required maxlength="255"
+                <label for="keterangan" class="block text-sm font-medium text-foreground mb-2">Keterangan *</label>
+                <input type="text" id="keterangan" name="keterangan" required maxlength="255"
                     class="w-full px-4 py-3 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
-                <p class="text-sm text-red-500 hidden mt-1" id="lokasi_acara-error"></p>
+                @error('keterangan')
+                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Submit Button -->
             <div class="flex gap-3 pt-4">
-                <button type="submit" class="flex-1 gradient-hero text-white font-semibold py-3 px-6 rounded-md hover:opacity-90 transition-opacity">
+                <button type="submit"
+                    class="flex-1 gradient-hero text-white font-semibold py-3 px-6 rounded-md hover:opacity-90 transition-opacity">
                     Simpan Acara
                 </button>
-                <button type="button" id="cancel-acara" class="px-6 py-3 border border-border rounded-md text-foreground hover:bg-muted/20 transition-colors">
+                <button type="button" id="cancel-acara"
+                    class="px-6 py-3 border border-border rounded-md text-foreground hover:bg-muted/20 transition-colors">
                     Batal
                 </button>
             </div>

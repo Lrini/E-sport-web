@@ -151,7 +151,7 @@ $(function() {
                 render: function(data, type, row) {
                     return `
                         <div class="flex space-x-2 justify-center">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200" href="admin/acara/${row.id}/update">
                                 Update
                             </button>
                             <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">

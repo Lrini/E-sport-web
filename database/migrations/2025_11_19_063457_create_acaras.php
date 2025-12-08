@@ -17,6 +17,7 @@ class CreateAcaras extends Migration
             $table->id();
             $table->integer('uuid')->unique();
             $table->integer('id_lomba');
+            $table->string('nama_acara');
             $table->date('tanggal_acara');
             $table->string('keterangan');
             $table->timestamps();

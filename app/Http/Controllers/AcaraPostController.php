@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\acara;
+use App\Models\lomba;
 use Illuminate\Http\Request;
 
 class AcaraPostController extends Controller
@@ -14,16 +15,17 @@ class AcaraPostController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.acara.index');
+        $lombas = lomba::all();
+        return view('admin.dashboard.acara.index', compact('lombas'));
     }
 
     public function getdata()
     {
         $acaras = acara::with('lomba')->get()->map(function ($acara) {
             return [
-                'nama_acara' => $acara->lomba ? $acara->lomba->nama_lomba : 'N/A',
+                'nama_acara' => $acara->nama_acara,
                 'tanggal_acara' => $acara->tanggal_acara,
-                'keterangan' => $acara->lokasi_acara,
+                'keterangan' => $acara->keterangan,
                 'update' => '', // Placeholder for update button
                 'delete' => '', // Placeholder for delete button
             ];
@@ -38,7 +40,8 @@ class AcaraPostController extends Controller
      */
     public function create()
     {
-        //
+        $lombas = lomba::all();
+        return view('admin.dashboard.acara.create', compact('lombas'));
     }
 
     /**
@@ -50,10 +53,17 @@ class AcaraPostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'id_lomba' => 'required|exists:lombas,id',
             'nama_acara' => 'required|string|max:255',
             'tanggal_acara' => 'required|date',
-            'lokasi_acara' => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255',
         ]);
+
+         // Generate a unique uuid
+        do {
+            $uuid = mt_rand(100000, 999999);
+        } while (acara::where('uuid', $uuid)->exists());
+        $validatedData['uuid'] = $uuid;
 
         acara::create($validatedData);
 

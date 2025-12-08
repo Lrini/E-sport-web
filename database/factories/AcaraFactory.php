@@ -16,6 +16,7 @@ class AcaraFactory extends Factory
         return [
              'uuid' => $this->faker->unique()->numberBetween(1, 1000000),
             'id_lomba' => 1,
+            'nama_acara' => $this->faker->word(),
             'tanggal_acara' => $this->faker->date(),
             'keterangan' => $this->faker->sentence(),
         ];
