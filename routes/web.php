@@ -59,5 +59,9 @@ Route::get('/admin/dashboard', function () {
 
 
 // Resource routes for managing 'acara' in the admin dashboard
-Route::get('admin/dashboard/acara/data', [App\Http\Controllers\AcaraPostController::class, 'getdata'])->name('acara.data')->middleware('auth');
-Route::resource('admin/dashboard/acara', App\Http\Controllers\AcaraPostController::class)->middleware('auth');
+Route::get('admin/dashboard/acara/data', [App\Http\Controllers\AcaraPostController::class, 'getdata'])->name('acara.data')->middleware('auth');// route untuk mengambil data acara dalam bentuk json
+Route::resource('admin/dashboard/acara', App\Http\Controllers\AcaraPostController::class)->middleware('auth');// route resource untuk mengelola data acara
+
+// Resource routes for managing 'lomba' in the admin dashboard
+Route::get('admin/dashboard/lomba/data', [App\Http\Controllers\LombaPostController::class, 'getdata'])->name('lomba.data')->middleware('auth');// route untuk mengambil data lomba dalam bentuk json
+Route::resource('admin/dashboard/lomba', App\Http\Controllers\LombaPostController::class)->middleware('auth');// route resource untuk mengelola data lomba
