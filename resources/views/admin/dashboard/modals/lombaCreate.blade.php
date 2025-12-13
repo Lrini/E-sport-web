@@ -22,13 +22,14 @@
                 <p class="hidden mt-1 text-sm text-red-500" id="nama_lomba-error"></p>
             </div>
 
-            <!-- Tanggal Acara -->
+            <!-- Deskripsi Lomba -->
             <div>
-                <label for="deskripsi_lomba" class="block mb-2 text-sm font-medium text-foreground">Deskripsi Lomba
-                    *</label>
-                <input type="text" id="deskripsi_lomba" name="deskripsi_lomba" required
-                    class="w-full px-4 py-3 border rounded-md bg-background border-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
-                <p class="hidden mt-1 text-sm text-red-500" id="deskripsi_lomba-error"></p>
+                <label for="deskripsi" class="block mb-2 text-sm font-medium text-foreground">Deskripsi Lomba *</label>
+                <input id="deskripsi" type="hidden" name="deskripsi" value="{{ old('deskripsi') }}">
+                <trix-editor input="deskripsi" class="trix-content"></trix-editor>
+                @error('deskripsi')
+                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Lokasi Acara -->
@@ -55,3 +56,47 @@
         </form>
     </div>
 </div>
+
+<style>
+    /* Trix Editor Custom Styling */
+    trix-editor {
+        border: 1px solid hsl(214, 32%, 91%);
+        border-radius: 0.375rem;
+        padding: 0.75rem 1rem;
+        min-height: 150px;
+        background-color: hsl(210, 100%, 97%);
+    }
+    
+    trix-editor:focus {
+        outline: none;
+        border-color: hsl(217, 91%, 60%);
+        box-shadow: 0 0 0 2px hsl(217, 91%, 60%, 0.2);
+    }
+    
+    trix-toolbar .trix-button-group {
+        background-color: white;
+        border: 1px solid hsl(214, 32%, 91%);
+        border-radius: 0.375rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+<script>
+    // Initialize Trix editor
+    document.addEventListener('DOMContentLoaded', function() {
+        const trixEditor = document.querySelector('trix-editor[input="deskripsi"]');
+        
+        if (trixEditor) {
+            // Handle content changes
+            trixEditor.addEventListener('trix-change', function(event) {
+                console.log('Trix content changed');
+            });
+            
+            // Optional: Disable file attachments if not needed
+            trixEditor.addEventListener('trix-file-accept', function(event) {
+                event.preventDefault();
+                alert('File attachments are not supported');
+            });
+        }
+    });
+</script>

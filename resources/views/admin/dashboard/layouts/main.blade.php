@@ -10,6 +10,12 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Trix Editor CSS -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    
+    <!-- Trix Editor JS -->
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+
     <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
@@ -178,6 +184,12 @@
         
             // Initialize view details modal
             initModal('view-modal', null, 'close-view-modal', null);
+            
+            // Initialize lomba modal
+            initModal('lomba-modal', 'add-lomba-btn', 'close-lomba-modal', 'cancel-lomba');
+            
+            // Initialize acara modal
+            initModal('acara-modal', 'add-acara-btn', 'close-acara-modal', 'cancel-acara');
         
             // Setup Escape key handler for all modals
             setupEscapeKey();
