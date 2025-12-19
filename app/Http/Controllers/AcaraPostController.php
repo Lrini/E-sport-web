@@ -25,7 +25,7 @@ class AcaraPostController extends Controller
             return [
                 'id' => $acara->id,
                 'nama_acara' => $acara->nama_acara,
-                'tanggal_acara' => $acara->tanggal_acara,
+                'tanggal_acara' => $acara->tanggal_acara->format('Y-m-d'),
                 'keterangan' => $acara->keterangan,
             ];
         });

@@ -48,7 +48,20 @@ class LombaPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_lomba' => 'required|string|max:255',
+            'deskripsi_lomba' => 'required|string',
+            'biaya_daftar' => 'required|numeric',
+        ]);
+
+        do{
+            $uuid = mt_rand(100000, 999999);
+        } while (lomba::where('uuid', $uuid)->exists());
+        $validatedData['uuid'] = $uuid;
+
+        lomba::create($validatedData);
+
+        return redirect()->action([LombaPostController::class, 'index'])->with('success', 'Lomba created successfully.');
     }
 
     /**
@@ -70,7 +83,8 @@ class LombaPostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lomba = lomba::findOrFail($id);
+        return view('admin.dashboard.lomba.update', compact('lomba'));
     }
 
     /**
@@ -82,7 +96,14 @@ class LombaPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $lomba = lomba::findOrFail($id);
+        $validatedData = $request->validate([
+            'nama_lomba' => 'required|string|max:255',
+            'deskripsi_lomba' => 'required|string',
+            'biaya_daftar' => 'required|numeric',
+        ]);
+        $lomba->update($validatedData);
+        return redirect()->route('lomba.index')->with('success', 'Lomba updated successfully.');
     }
 
     /**
@@ -91,8 +112,9 @@ class LombaPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(lomba $lomba)
     {
-        //
+        $lomba->delete();
+        return redirect()->route('lomba.index')->with('success', 'Lomba deleted successfully.');
     }
 }

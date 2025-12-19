@@ -5,6 +5,14 @@
         <h2 class="text-2xl font-bold">Daftar Lomba</h2>
         <p class="text-sm opacity-90">Kelola daftar lomba</p>
     </div>
+    @if (session()->has('success'))
+                <div class="relative px-4 py-3 mb-6 text-green-700 bg-green-100 border border-green-400 rounded-lg" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3 text-green-700 hover:text-green-900" onclick="this.parentElement.style.display='none'" aria-label="Close">
+                        &times;
+                    </button>
+                </div>
+            @endif
     <div class="p-6">
         <div class="flex items-center justify-between mb-4">
             <div>
@@ -127,6 +135,14 @@
     font-size: 0.875rem;
     color: #374151;
 }
+
+/* Text overflow handling for description column */
+#lomba-table td:nth-child(2) {
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -140,14 +156,15 @@ $(function() {
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
         ajax: '{{ route('lomba.data') }}',
         columns: [
-            { data: 'nama_lomba', name: 'nama_lomba' },
-            { data: 'deskripsi_lomba', name: 'deskripsi_lomba' },
-            { data: 'biaya_daftar', name: 'biaya_daftar' },
+            { data: 'nama_lomba', name: 'nama_lomba', width: '20%' },
+            { data: 'deskripsi_lomba', name: 'deskripsi_lomba', width: '50%' },
+            { data: 'biaya_daftar', name: 'biaya_daftar', width: '15%' },
             {
                 data: null,
                 name: 'aksi',
                 orderable: false,
                 searchable: false,
+                width: '15%',
                 render: function(data, type, row) {
                     return `
                             <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600" href="/admin/dashboard/lomba/${row.id}/edit">

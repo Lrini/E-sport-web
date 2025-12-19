@@ -1,14 +1,22 @@
 @extends('admin.dashboard.layouts.main')
 @section('section')
-<div class="bg-white shadow-lg rounded-lg overflow-hidden">
-    <div class="px-6 py-4 bg-gradient-to-r from-primary to-accent text-white">
+<div class="overflow-hidden bg-white rounded-lg shadow-lg">
+    <div class="px-6 py-4 text-white bg-gradient-to-r from-primary to-accent">
         <h2 class="text-2xl font-bold">Daftar Acara</h2>
         <p class="text-sm opacity-90">Kelola acara lomba</p>
     </div>
+     @if (session()->has('success'))
+                <div class="relative px-4 py-3 mb-6 text-green-700 bg-green-100 border border-green-400 rounded-lg" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3 text-green-700 hover:text-green-900" onclick="this.parentElement.style.display='none'" aria-label="Close">
+                        &times;
+                    </button>
+                </div>
+            @endif
     <div class="p-6">
-        <div class="mb-4 flex justify-between items-center">
+        <div class="flex items-center justify-between mb-4">
             <div>
-                <button id="open-acara-modal" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200">
+                <button id="open-acara-modal" class="px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary/90">
                     Tambah Acara Baru
                 </button>
             </div>
@@ -17,13 +25,13 @@
             </div>
         </div>
         <div class="overflow-x-auto">
-            <table id="acara-table" class="w-full table-auto border-collapse">
+            <table id="acara-table" class="w-full border-collapse table-auto">
                 <thead class="bg-muted">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider border-b">Nama Acara</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider border-b">Tanggal Acara</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider border-b">Keterangan</th>
-                        <th class="px-4 py-3 text-center text-xs font-medium text-muted-foreground uppercase tracking-wider border-b">Aksi</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Nama Acara</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Tanggal Acara</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Keterangan</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -150,13 +158,13 @@ $(function() {
                 searchable: false,
                 render: function(data, type, row) {
                     return `
-                            <a class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200" href="/admin/dashboard/acara/${row.id}/edit">
+                            <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600" href="/admin/dashboard/acara/${row.id}/edit">
                                 Update
                             </a>
                             <form action="/admin/dashboard/acara/${row.id}" method="POST" style="display: inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus acara ini?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-500 rounded-md hover:bg-red-600">
                                     Delete
                                 </button>
                             </form>

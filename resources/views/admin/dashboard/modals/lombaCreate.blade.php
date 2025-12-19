@@ -24,10 +24,10 @@
 
             <!-- Deskripsi Lomba -->
             <div>
-                <label for="deskripsi" class="block mb-2 text-sm font-medium text-foreground">Deskripsi Lomba *</label>
-                <input id="deskripsi" type="hidden" name="deskripsi" value="{{ old('deskripsi') }}">
-                <trix-editor input="deskripsi" class="trix-content"></trix-editor>
-                @error('deskripsi')
+                <label for="deskripsi_lomba" class="block mb-2 text-sm font-medium text-foreground">Deskripsi Lomba *</label>
+                <input id="deskripsi_lomba" type="hidden" name="deskripsi_lomba" value="{{ old('deskripsi_lomba') }}">
+                <trix-editor input="deskripsi_lomba" class="trix-content"></trix-editor>
+                @error('deskripsi_lomba')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
             </div>
@@ -84,7 +84,7 @@
 <script>
     // Initialize Trix editor
     document.addEventListener('DOMContentLoaded', function() {
-        const trixEditor = document.querySelector('trix-editor[input="deskripsi"]');
+        const trixEditor = document.querySelector('trix-editor[input="deskripsi_lomba"]');
         
         if (trixEditor) {
             // Handle content changes
