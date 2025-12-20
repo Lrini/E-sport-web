@@ -2,8 +2,8 @@
 @section('section')
 <div class="overflow-hidden bg-white rounded-lg shadow-lg">
     <div class="px-6 py-4 text-white bg-gradient-to-r from-primary to-accent">
-        <h2 class="text-2xl font-bold">Daftar Acara</h2>
-        <p class="text-sm opacity-90">Kelola acara lomba</p>
+        <h2 class="text-2xl font-bold">Daftar Grade</h2>
+        <p class="text-sm opacity-90">Kelola grade</p>
     </div>
      @if (session()->has('success'))
                 <div class="relative px-4 py-3 mb-6 text-green-700 bg-green-100 border border-green-400 rounded-lg" role="alert">
@@ -16,22 +16,20 @@
     <div class="p-6">
         <div class="flex items-center justify-between mb-4">
             <div>
-                <button id="open-acara-modal" class="px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary/90">
-                    Tambah Acara Baru
+                <button id="open-grade-modal" class="px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary/90">
+                    Tambah Grade Baru
                 </button>
             </div>
             <div class="text-sm text-muted-foreground">
-                Total: <span id="total-count">0</span> acara
+                Total: <span id="total-count">0</span> grade
             </div>
         </div>
         <div class="overflow-x-auto">
-            <table id="acara-table" class="w-full border-collapse table-auto">
+            <table id="grade-table" class="w-full border-collapse table-auto">
                 <thead class="bg-muted">
                     <tr>
-                        <th class="w-1/4 px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Lomba</th>
-                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Nama Acara</th>
-                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Tanggal Acara</th>
-                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Keterangan</th>
+                        <th class="w-1/4 px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Grade</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Lomba</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
                     </tr>
                 </thead>
@@ -45,17 +43,17 @@
 
 <style>
 /* Custom DataTables Styling */
-#acara-table_wrapper .dataTables_length,
-#acara-table_wrapper .dataTables_filter,
-#acara-table_wrapper .dataTables_info,
-#acara-table_wrapper .dataTables_paginate {
+#grade-table_wrapper .dataTables_length,
+#grade-table_wrapper .dataTables_filter,
+#grade-table_wrapper .dataTables_info,
+#grade-table_wrapper .dataTables_paginate {
     margin-bottom: 1rem;
     color: #6b7280;
     font-size: 0.875rem;
 }
 
-#acara-table_wrapper .dataTables_length select,
-#acara-table_wrapper .dataTables_filter input {
+#grade-table_wrapper .dataTables_length select,
+#grade-table_wrapper .dataTables_filter input {
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
     padding: 0.5rem 0.75rem;
@@ -64,18 +62,18 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#acara-table_wrapper .dataTables_length select:focus,
-#acara-table_wrapper .dataTables_filter input:focus {
+#grade-table_wrapper .dataTables_length select:focus,
+#grade-table_wrapper .dataTables_filter input:focus {
     outline: none;
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-#acara-table_wrapper .dataTables_info {
+#grade-table_wrapper .dataTables_info {
     padding-top: 0.5rem;
 }
 
-#acara-table_wrapper .dataTables_paginate .paginate_button {
+#grade-table_wrapper .dataTables_paginate .paginate_button {
     padding: 0.5rem 0.75rem;
     margin: 0 0.125rem;
     border: 1px solid #d1d5db;
@@ -88,42 +86,42 @@
     transition: all 0.15s ease-in-out;
 }
 
-#acara-table_wrapper .dataTables_paginate .paginate_button:hover {
+#grade-table_wrapper .dataTables_paginate .paginate_button:hover {
     background: #f3f4f6;
     border-color: #9ca3af;
     color: #111827;
 }
 
-#acara-table_wrapper .dataTables_paginate .paginate_button.current {
+#grade-table_wrapper .dataTables_paginate .paginate_button.current {
     background: #3b82f6;
     border-color: #3b82f6;
     color: #ffffff;
 }
 
-#acara-table_wrapper .dataTables_paginate .paginate_button.disabled {
+#grade-table_wrapper .dataTables_paginate .paginate_button.disabled {
     background: #f9fafb;
     border-color: #e5e7eb;
     color: #9ca3af;
     cursor: not-allowed;
 }
 
-#acara-table tbody tr {
+#grade-table tbody tr {
     transition: background-color 0.15s ease-in-out;
 }
 
-#acara-table tbody tr:hover {
+#grade-table tbody tr:hover {
     background-color: #f8fafc;
 }
 
-#acara-table tbody tr:nth-child(even) {
+#grade-table tbody tr:nth-child(even) {
     background-color: #f9fafb;
 }
 
-#acara-table tbody tr:nth-child(odd) {
+#grade-table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
-#acara-table_processing {
+#grade-table_processing {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -144,10 +142,10 @@
 <script>
 $(function() {
     // Inisialisasi DataTable
-    var table = $('#acara-table').DataTable({
+    var table = $('#grade-table').DataTable({
         processing: true,
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
-        ajax: '{{ route('acara.data') }}',
+        ajax: '{{ route('grade.data') }}',
         columns: [
             { data: 'lomba.nama_lomba', name: 'lomba.nama_lomba' },
             { data: 'nama_acara', name: 'nama_acara' },
@@ -160,10 +158,10 @@ $(function() {
                 searchable: false,
                 render: function(data, type, row) {
                     return `
-                            <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600" href="/admin/dashboard/acara/${row.id}/edit">
+                            <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600" href="/admin/dashboard/grade/${row.id}/edit">
                                 Update
                             </a>
-                            <form action="/admin/dashboard/acara/${row.id}" method="POST" style="display: inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus acara ini?')">
+                            <form action="/admin/dashboard/grade/${row.id}" method="POST" style="display: inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus grade ini?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-500 rounded-md hover:bg-red-600">
@@ -210,16 +208,16 @@ $(function() {
     });
 
     // Modal functionality
-    $('#open-acara-modal').on('click', function() {
-        $('#acara-modal').removeClass('hidden');
+    $('#open-grade-modal').on('click', function() {
+        $('#grade-modal').removeClass('hidden');
     });
 
-    $('#close-acara-modal, #cancel-acara').on('click', function() {
-        $('#acara-modal').addClass('hidden');
+    $('#close-grade-modal, #cancel-grade').on('click', function() {
+        $('#grade-modal').addClass('hidden');
     });
 
     // Close modal when clicking outside
-    $('#acara-modal').on('click', function(e) {
+    $('#grade-modal').on('click', function(e) {
         if (e.target === this) {
             $(this).addClass('hidden');
         }
@@ -228,4 +226,4 @@ $(function() {
 </script>
 @endsection
 
-@include('admin.dashboard.modals.acaraCreate')
+@include('admin.dashboard.modals.gradeCreate')

@@ -7,6 +7,7 @@ use App\Models\grade;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\PesertaPostController;
 use App\Http\Controllers\PenontonPostController;
+use App\Http\Controllers\GradePostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,3 +66,7 @@ Route::resource('admin/dashboard/acara', App\Http\Controllers\AcaraPostControlle
 // Resource routes for managing 'lomba' in the admin dashboard
 Route::get('admin/dashboard/lomba/data', [App\Http\Controllers\LombaPostController::class, 'getdata'])->name('lomba.data')->middleware('auth');// route untuk mengambil data lomba dalam bentuk json
 Route::resource('admin/dashboard/lomba', App\Http\Controllers\LombaPostController::class)->middleware('auth');// route resource untuk mengelola data lomba
+
+// Resource routes for managing 'grade' in the admin dashboard
+Route::get('admin/dashboard/grade/data', [App\Http\Controllers\GradePostController::class, 'getdata'])->name('grade.data')->middleware('auth');// route untuk mengambil data grade dalam bentuk json
+Route::resource('admin/dashboard/grade', App\Http\Controllers\GradePostController::class)->middleware('auth');// route resource untuk mengelola data grade

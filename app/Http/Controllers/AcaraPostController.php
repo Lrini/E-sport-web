@@ -24,6 +24,10 @@ class AcaraPostController extends Controller
         $acaras = acara::with('lomba')->get()->map(function ($acara) {
             return [
                 'id' => $acara->id,
+                'lomba' => [
+                    'id_lomba' => $acara->lomba->id,
+                    'nama_lomba' => $acara->lomba->nama_lomba,
+                ],
                 'nama_acara' => $acara->nama_acara,
                 'tanggal_acara' => $acara->tanggal_acara->format('Y-m-d'),
                 'keterangan' => $acara->keterangan,
