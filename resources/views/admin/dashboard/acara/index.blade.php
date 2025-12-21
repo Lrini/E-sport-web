@@ -149,7 +149,7 @@ $(function() {
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
         ajax: '{{ route('acara.data') }}',
         columns: [
-            { data: 'lomba.nama_lomba', name: 'lomba.nama_lomba' },
+            { data: 'nama_lomba', name: 'nama_lomba' },
             { data: 'nama_acara', name: 'nama_acara' },
             { data: 'tanggal_acara', name: 'tanggal_acara' },
             { data: 'keterangan', name: 'keterangan' },

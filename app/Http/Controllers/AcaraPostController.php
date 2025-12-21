@@ -24,10 +24,8 @@ class AcaraPostController extends Controller
         $acaras = acara::with('lomba')->get()->map(function ($acara) {
             return [
                 'id' => $acara->id,
-                'lomba' => [
-                    'id_lomba' => $acara->lomba->id,
-                    'nama_lomba' => $acara->lomba->nama_lomba,
-                ],
+                'nama_lomba' => $acara->lomba ? $acara->lomba->nama_lomba : 'N/A', // $acara->lomba maksudnya untuk mengambil relasi lomba lalu ambil field nama_lomba
+                'id_lomba' => $acara->lomba ? $acara->lomba->id : null,
                 'nama_acara' => $acara->nama_acara,
                 'tanggal_acara' => $acara->tanggal_acara->format('Y-m-d'),
                 'keterangan' => $acara->keterangan,

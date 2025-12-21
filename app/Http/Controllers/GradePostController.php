@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\grade;
+use App\Models\lomba;
 use Illuminate\Http\Request;
 
 class GradePostController extends Controller
@@ -14,7 +15,20 @@ class GradePostController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.grade.index');
+        $lombas = lomba::all();
+        return view('admin.dashboard.grade.index', compact('lombas'));
+    }
+
+    public function getdata()
+    {
+        $grades = grade::with('lomba')->get()->map(function ($grade) {
+            return [
+                'id' => $grade->id,
+                'tingkat' => $grade->tingkat,
+                'nama_lomba' => $grade->lomba ? $grade->lomba->nama_lomba : 'N/A',// $grade->lomba maksudnya untuk mengambil relasi lomba lalu ambil field nama_lomba
+            ];
+        });
+        return response()->json(['data' => $grades]);
     }
 
     /**
@@ -24,7 +38,8 @@ class GradePostController extends Controller
      */
     public function create()
     {
-        //
+        $grades = grade::all();
+        return view('admin.dashboard.grade.create', compact('grades'));
     }
 
     /**
@@ -35,7 +50,16 @@ class GradePostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id_lomba' => 'required|exists:lombas,id',
+            'tingkat' => 'required|string|max:255',
+        ]);
+        do{
+            $uuid = mt_rand(100000, 999999);
+        }while (grade::where('uuid',$uuid)->exists());
+        $validatedData['uuid'] = $uuid;
+        grade::create($validatedData);
+        return redirect()->route('grade.index')->with('success', 'Grade created successfully.');
     }
 
     /**
@@ -55,9 +79,11 @@ class GradePostController extends Controller
      * @param  \App\Models\grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function edit(grade $grade)
+    public function edit($id)
     {
-        //
+        $grade = grade::findOrFail($id);
+        $lombas = lomba::all();
+        return view('admin.dashboard.grade.update', compact('grade', 'lombas'));
     }
 
     /**
@@ -67,9 +93,15 @@ class GradePostController extends Controller
      * @param  \App\Models\grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, grade $grade)
+    public function update(Request $request, $id)
     {
-        //
+        $grade = grade::findOrFail($id);
+        $validatedData = $request->validate([
+            'id_lomba' => 'required|exists:lombas,id',
+            'tingkat' => 'required|string|max:255',
+        ]);
+        $grade->update($validatedData);
+        return redirect()->route('grade.index')->with('success', 'Grade updated successfully.');
     }
 
     /**
@@ -80,6 +112,7 @@ class GradePostController extends Controller
      */
     public function destroy(grade $grade)
     {
-        //
+        grade::destroy($grade->id);
+        return redirect()->route('grade.index')->with('success', 'Grade deleted successfully.');
     }
 }
