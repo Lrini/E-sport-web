@@ -73,4 +73,57 @@ class PenontonPostController extends Controller
         // Redirect back with success message
         return redirect()->back()->with('success', 'Registration successful!');
     }
+
+    public function edit($id)
+    {
+        $penonton = penonton::findOrFail($id);
+        $lombas = lomba::all();
+        $acaras = acara::all();
+        return view('admin.dashboard.penonton.update', compact('penonton', 'lombas', 'acaras'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $penonton = penonton::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'asal_sekolah' => 'required|string|max:255',
+            'id_lomba' => 'required|integer|exists:lombas,id',
+            'id_acara' => 'required|integer|exists:acaras,id',
+            'no_hp' => 'required|string|max:15',
+            'biaya_tiket' => 'nullable|numeric|min:0',
+            'status_pembayaran' => 'required|string|in:pending,lunas,batal',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Handle file upload if present
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($penonton->image && Storage::disk('public')->exists($penonton->image)) {
+                Storage::disk('public')->delete($penonton->image);
+            }
+            $imagePath = $request->file('image')->store('bukti_tonton', 'public');
+            $validatedData['image'] = $imagePath;
+        }
+
+        $penonton->update($validatedData);
+
+        return redirect()->route('penonton.index')->with('success', 'Penonton berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $penonton = penonton::findOrFail($id);
+
+        // Delete associated image if exists
+        if ($penonton->image && Storage::disk('public')->exists($penonton->image)) {
+            Storage::disk('public')->delete($penonton->image);
+        }
+
+        $penonton->delete();
+
+        return redirect()->route('penonton.index')->with('success', 'Penonton berhasil dihapus.');
+    }
+
 }

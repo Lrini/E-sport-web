@@ -15,11 +15,6 @@
             @endif
     <div class="p-6">
         <div class="flex items-center justify-between mb-4">
-            <div>
-                <button id="open-penonton-modal" class="px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary/90">
-                    Tambah Penonton Baru
-                </button>
-            </div>
             <div class="text-sm text-muted-foreground">
                 Total: <span id="total-count">0</span> penonton
             </div>
@@ -171,7 +166,7 @@ $(function() {
                 render: function(data, type, row) {
                     return `
                         <div class="flex flex-col space-y-2">
-                            <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600 w-20" href="/admin/dashboard/lomba/${row.id}/edit">
+                            <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600 w-20" href="/admin/dashboard/penonton/${row.id}/edit">
                                 Update
                             </a>
                             <form action="/admin/dashboard/penonton/${row.id}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus penonton ini?')" class="inline">
