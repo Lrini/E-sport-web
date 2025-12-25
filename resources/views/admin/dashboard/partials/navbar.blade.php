@@ -46,7 +46,7 @@
                         <span class="font-medium">Grade</span>
                     </a>
 
-                    <a href="index.html"
+                    <a href="/admin/dashboard/penonton"
                         class="flex items-center px-4 py-3 space-x-3 transition-all rounded-lg text-white/80 hover:text-white hover:bg-white/10 group">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

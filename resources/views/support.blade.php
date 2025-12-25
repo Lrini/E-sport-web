@@ -81,7 +81,7 @@
                         >
                             <option value="">Select a campetion</option>
                             @foreach($lombas as $lomba)
-                                <option value="{{ $lomba->id }}">{{ $lomba->nama_lomba }}</option>
+                                <option value="{{ $lomba->id }}" data-biaya="{{ $lomba->biaya_daftar }}">{{ $lomba->nama_lomba }}</option>
                             @endforeach
                         </select>
                             @error('id_lomba')
@@ -90,22 +90,37 @@
                                 </div>
                             @enderror
                     </div>
-                    
-                    <!-- Date support Selection Field -->
+
+                    <!-- Registration Fee Field -->
                     <div class="mb-6">
-                        <label for="tanggal_acara" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Competion date *
+                        <label for="biaya_tiket_display" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Registration Fee
+                        </label>
+                        <input
+                            type="text"
+                            id="biaya_tiket_display"
+                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg bg-gray-100 cursor-not-allowed"
+                            readonly
+                            placeholder="Select a competition to see the fee"
+                        >
+                        <input type="hidden" id="biaya_tiket" name="biaya_tiket" value="0">
+                    </div>
+                    
+                    <!-- Event Name Selection Field -->
+                    <div class="mb-6">
+                        <label for="id_acara" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Event Name *
                         </label>
                         <select
-                            id="tanggal_acara"
-                            name="tanggal_acara"
-                            class="form-control @error('tanggal_acara') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                            id="id_acara"
+                            name="id_acara"
+                            class="form-control @error('id_acara') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
                             required
                             disabled
                         >
                             <option value="">Select a competition first</option>
                         </select>
-                            @error('tanggal_acara')
+                            @error('id_acara')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -168,41 +183,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Data ini diambil dari variabel PHP $acaras yang di-encode ke format JSON sehiggaa bisa digunakan di JavaScript
     const acarasData = @json($acaras);
     
-    // Mendapatkan referensi ke elemen dropdown lomba dan tanggal acara
+    // Mendapatkan referensi ke elemen dropdown lomba dan id acara
     const lombaSelect = document.getElementById('id_lomba');
-    const tanggalAcaraSelect = document.getElementById('tanggal_acara');
+    const idAcaraSelect = document.getElementById('id_acara');
     
     // Menambahkan event listener untuk perubahan pada dropdown lomba
     lombaSelect.addEventListener('change', function() {
         const selectedLombaId = this.value;
-        
-        // Reset dropdown tanggal acara
-        tanggalAcaraSelect.innerHTML = '<option value="">Select a competition date</option>';
-        
+        const selectedOption = this.options[this.selectedIndex];
+        const biayaDaftar = selectedOption.getAttribute('data-biaya');
+
+        // Reset dropdown id acara
+        idAcaraSelect.innerHTML = '<option value="">Select a competition date</option>';
+
         if (selectedLombaId) {
+            // Set biaya tiket
+            document.getElementById('biaya_tiket_display').value = 'Rp ' + parseInt(biayaDaftar).toLocaleString('id-ID');
+            document.getElementById('biaya_tiket').value = biayaDaftar;
+
             // Filter data acaras berdasarkan lomba yang dipilih
             const filteredAcaras = acarasData.filter(acara => acara.id_lomba == selectedLombaId);
-            
+
             if (filteredAcaras.length > 0) {
-                // Enable tanggal acara dropdown
-                tanggalAcaraSelect.disabled = false;
-                
-                // Menambahkan opsi tanggal acara yang sesuai ke dropdown
+                // Enable id acara dropdown
+                idAcaraSelect.disabled = false;
+
+                // Menambahkan opsi nama acara yang sesuai ke dropdown
                 filteredAcaras.forEach(acara => {
                     const option = document.createElement('option');
                     option.value = acara.id;
-                    option.textContent = acara.tanggal_acara;
-                    tanggalAcaraSelect.appendChild(option);
+                    option.textContent = acara.nama_acara;
+                    idAcaraSelect.appendChild(option);
                 });
             } else {
-                // Jika tidak ada acara untuk lomba yang dipilih, disable dropdown tanggal acara
-                tanggalAcaraSelect.disabled = true;
-                tanggalAcaraSelect.innerHTML = '<option value="">No dates available for this competition</option>';
+                // Jika tidak ada acara untuk lomba yang dipilih, disable dropdown id acara
+                idAcaraSelect.disabled = true;
+                idAcaraSelect.innerHTML = '<option value="">No dates available for this competition</option>';
             }
         } else {
-            // Jika tidak ada lomba yang dipilih, disable dropdown tanggal acara
-            tanggalAcaraSelect.disabled = true;
-            tanggalAcaraSelect.innerHTML = '<option value="">Select a competition first</option>';
+            // Jika tidak ada lomba yang dipilih, disable dropdown id acara dan reset biaya
+            idAcaraSelect.disabled = true;
+            idAcaraSelect.innerHTML = '<option value="">Select a competition first</option>';
+            document.getElementById('biaya_tiket_display').value = '';
+            document.getElementById('biaya_tiket').value = '0';
         }
     });
 });

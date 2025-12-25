@@ -70,3 +70,7 @@ Route::resource('admin/dashboard/lomba', App\Http\Controllers\LombaPostControlle
 // Resource routes for managing 'grade' in the admin dashboard
 Route::get('admin/dashboard/grade/data', [App\Http\Controllers\GradePostController::class, 'getdata'])->name('grade.data')->middleware('auth');// route untuk mengambil data grade dalam bentuk json
 Route::resource('admin/dashboard/grade', App\Http\Controllers\GradePostController::class)->middleware('auth');// route resource untuk mengelola data grade
+
+// Resource routes for managing 'penonton' in the admin dashboard
+Route::get('admin/dashboard/penonton/data', [App\Http\Controllers\PenontonPostController::class, 'getdata'])->name('penonton.data')->middleware('auth');// route untuk mengambil data penonton dalam bentuk json
+Route::resource('admin/dashboard/penonton', App\Http\Controllers\PenontonPostController::class)->middleware('auth');// route resource untuk mengelola data penonton
