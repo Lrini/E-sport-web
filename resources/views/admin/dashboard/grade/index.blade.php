@@ -29,7 +29,6 @@
                 <thead class="bg-muted">
                     <tr>
                         <th class="w-1/4 px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Grade</th>
-                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Lomba</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
                     </tr>
                 </thead>
@@ -147,25 +146,27 @@ $(function() {
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
         ajax: '{{ route('grade.data') }}',
         columns: [
-            { data: 'tingkat', name: 'tingkat' },
-            { data: 'nama_lomba', name: 'nama_lomba' },
+            { data: 'tingkat', name: 'tingkat', width: '80%' },
             {
                 data: null,
                 name: 'aksi',
                 orderable: false,
                 searchable: false,
+                width: '20%',
                 render: function(data, type, row) {
                     return `
-                            <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600" href="/admin/dashboard/grade/${row.id}/edit">
-                                Update
-                            </a>
-                            <form action="/admin/dashboard/grade/${row.id}" method="POST" style="display: inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus grade ini?')">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-500 rounded-md hover:bg-red-600">
-                                    Delete
-                                </button>
-                            </form>
+                            <div class="flex flex-col space-y-2">
+                                <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600 w-20" href="/admin/dashboard/grade/${row.id}/edit">
+                                    Update
+                                </a>
+                                <form action="/admin/dashboard/grade/${row.id}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus grade ini?')" class="inline">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-500 rounded-md hover:bg-red-600 w-20">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
                     `;
                 }
             }

@@ -234,5 +234,3 @@ $(function() {
 });
 </script>
 @endsection
-
-@include('admin.dashboard.modals.spectator')

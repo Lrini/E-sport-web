@@ -12,9 +12,9 @@ class grade extends Model
     // guarded digunakan untuk melindungi field id agar tidak bisa diisi secara massal
     protected $guarded = ['id'];
 
-    // relasi many to one antara grade dan lomba
+    // relasi has many dengan model Lomba
     public function lomba()
     {
-        return $this->belongsTo(lomba::class, 'id_lomba', 'id');
+        return $this->hasMany(lomba::class, 'id_grade', 'id');
     }
 }

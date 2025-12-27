@@ -17,4 +17,10 @@ class lomba extends Model
     {
         return $this->hasMany(acara::class, 'id_lomba', 'id');
     }
+
+    // relasi belongs to antara lomba dan grade
+    public function grade()
+    {
+        return $this->belongsTo(grade::class, 'id_grade', 'id');
+    }
 }

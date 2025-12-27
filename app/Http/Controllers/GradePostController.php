@@ -25,7 +25,6 @@ class GradePostController extends Controller
             return [
                 'id' => $grade->id,
                 'tingkat' => $grade->tingkat,
-                'nama_lomba' => $grade->lomba ? $grade->lomba->nama_lomba : 'N/A',// $grade->lomba maksudnya untuk mengambil relasi lomba lalu ambil field nama_lomba
             ];
         });
         return response()->json(['data' => $grades]);
@@ -51,7 +50,6 @@ class GradePostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'id_lomba' => 'required|exists:lombas,id',
             'tingkat' => 'required|string|max:255',
         ]);
         do{
@@ -97,7 +95,6 @@ class GradePostController extends Controller
     {
         $grade = grade::findOrFail($id);
         $validatedData = $request->validate([
-            'id_lomba' => 'required|exists:lombas,id',
             'tingkat' => 'required|string|max:255',
         ]);
         $grade->update($validatedData);

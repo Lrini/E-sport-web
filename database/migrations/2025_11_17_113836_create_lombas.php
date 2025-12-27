@@ -19,6 +19,7 @@ class CreateLombas extends Migration
             $table->string('nama_lomba');
             $table->text('deskripsi_lomba');
             $table->integer('biaya_daftar');
+            $table->integer('id_grade');
             $table->timestamps();
         });
     }

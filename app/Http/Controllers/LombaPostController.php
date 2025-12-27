@@ -14,7 +14,8 @@ class LombaPostController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.lomba.index');
+        $grades = \App\Models\grade::all();
+        return view('admin.dashboard.lomba.index', compact('grades'));
     }
 
     /**
@@ -24,12 +25,13 @@ class LombaPostController extends Controller
      */
     public function getdata()
     {
-        $lombas = lomba::all()->map(function ($lomba) {
+        $lombas = lomba::with('grade')->get()->map(function ($lomba) {
             return [
                 'id' => $lomba->id,
                 'nama_lomba' => $lomba->nama_lomba,
                 'deskripsi_lomba' => $lomba->deskripsi_lomba,
                 'biaya_daftar' => $lomba->biaya_daftar,
+                'grade' => $lomba->grade ? $lomba->grade->tingkat : 'N/A',
             ];
         });
         return response()->json(['data' => $lombas]);
@@ -52,6 +54,7 @@ class LombaPostController extends Controller
             'nama_lomba' => 'required|string|max:255',
             'deskripsi_lomba' => 'required|string',
             'biaya_daftar' => 'required|numeric',
+            'id_grade' => 'required|exists:grades,id',
         ]);
 
         do{
@@ -84,7 +87,8 @@ class LombaPostController extends Controller
     public function edit($id)
     {
         $lomba = lomba::findOrFail($id);
-        return view('admin.dashboard.lomba.update', compact('lomba'));
+        $grades = \App\Models\grade::all();
+        return view('admin.dashboard.lomba.update', compact('lomba', 'grades'));
     }
 
     /**
@@ -101,6 +105,7 @@ class LombaPostController extends Controller
             'nama_lomba' => 'required|string|max:255',
             'deskripsi_lomba' => 'required|string',
             'biaya_daftar' => 'required|numeric',
+            'id_grade' => 'required|exists:grades,id',
         ]);
         $lomba->update($validatedData);
         return redirect()->route('lomba.index')->with('success', 'Lomba updated successfully.');

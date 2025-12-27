@@ -32,7 +32,22 @@
                 @enderror
             </div>
 
-            <!-- Lokasi Acara -->
+            <!-- Grade -->
+            <div>
+                <label for="id_grade" class="block mb-2 text-sm font-medium text-foreground">Grade *</label>
+                <select id="id_grade" name="id_grade" required
+                    class="w-full px-4 py-3 border rounded-md bg-background border-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                    <option value="">Pilih Grade</option>
+                    @foreach($grades as $grade)
+                        <option value="{{ $grade->id }}">{{ $grade->tingkat }}</option>
+                    @endforeach
+                </select>
+                @error('id_grade')
+                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Biaya Pendaftaran -->
             <div>
                 <label for="biaya_daftar" class="block mb-2 text-sm font-medium text-foreground">Biaya Pendaftaran *</label>
                 <input type="text" id="biaya_daftar" name="biaya_daftar" required maxlength="255"

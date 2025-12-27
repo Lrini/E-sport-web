@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrades extends Migration
+class AddIdLombaToGradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateGrades extends Migration
      */
     public function up()
     {
-        Schema::create('grades', function (Blueprint $table) {
-            $table->id();
-            $table->integer('uuid')->unique();
-            $table->string('tingkat');
-            $table->timestamps();
+        Schema::table('grades', function (Blueprint $table) {
+            //
         });
     }
 
@@ -28,6 +25,8 @@ class CreateGrades extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Grade');
+        Schema::table('grades', function (Blueprint $table) {
+            //
+        });
     }
 }

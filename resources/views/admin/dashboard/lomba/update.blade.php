@@ -24,6 +24,18 @@
                 @enderror
             </div>
             <div>
+                <label for="id_grade" class="block text-sm font-medium text-gray-700">Grade</label>
+                <select name="id_grade" id="id_grade" required
+                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary">
+                    <option value="">Pilih Grade</option>
+                    @foreach($grades as $grade)
+                        <option value="{{ $grade->id }}" {{ old('id_grade', $lomba->id_grade) == $grade->id ? 'selected' : '' }}>
+                            {{ $grade->tingkat }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
                 <label for="biaya_daftar" class="block text-sm font-medium text-gray-700">Biaya</label>
                 <input type="text" name="biaya_daftar" id="biaya_daftar" value="{{ old('biaya_daftar', $lomba->biaya_daftar) }}" required
                     class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary">   

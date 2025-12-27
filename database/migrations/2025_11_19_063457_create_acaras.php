@@ -20,6 +20,7 @@ class CreateAcaras extends Migration
             $table->string('nama_acara');
             $table->date('tanggal_acara');
             $table->string('keterangan');
+            $table->integer('biaya');
             $table->timestamps();
         });
     }

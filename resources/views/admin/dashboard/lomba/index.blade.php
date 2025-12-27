@@ -30,6 +30,7 @@
                     <tr>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Nama Lomba</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Deskripsi Lomba</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Grade</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Biaya</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
                     </tr>
@@ -158,6 +159,7 @@ $(function() {
         columns: [
             { data: 'nama_lomba', name: 'nama_lomba', width: '20%' },
             { data: 'deskripsi_lomba', name: 'deskripsi_lomba', width: '50%' },
+            { data: 'grade', name: 'grade', width: '15%' },
             { data: 'biaya_daftar', name: 'biaya_daftar', width: '15%' },
             {
                 data: null,
@@ -167,16 +169,18 @@ $(function() {
                 width: '15%',
                 render: function(data, type, row) {
                     return `
-                            <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600" href="/admin/dashboard/lomba/${row.id}/edit">
-                                Update
-                            </a>
-                            <form action="/admin/dashboard/lomba/${row.id}" method="POST" style="display: inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus lomba ini?')">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-500 rounded-md hover:bg-red-600">
-                                    Delete
-                                </button>
-                            </form>
+                            <div class="flex flex-col space-y-2">
+                                <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600 w-20" href="/admin/dashboard/lomba/${row.id}/edit">
+                                    Update
+                                </a>
+                                <form action="/admin/dashboard/lomba/${row.id}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus lomba ini?')" class="inline">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-500 rounded-md hover:bg-red-600 w-20">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
                     `;
                 }
             }

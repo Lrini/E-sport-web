@@ -18,6 +18,7 @@ class LombaFactory extends Factory
             'nama_lomba' => $this->faker->word(),
             'deskripsi_lomba' => $this->faker->sentence(),
             'biaya_daftar' => $this->faker->numberBetween(50000, 200000),
+            'id_grade' => 1,
         ];
     }
 }

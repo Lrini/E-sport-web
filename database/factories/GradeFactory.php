@@ -16,7 +16,6 @@ class GradeFactory extends Factory
         return [
             'uuid' => $this->faker->unique()->numberBetween(1, 1000000),
             'tingkat'=>$this->faker->word(),
-            'id_lomba' => 1,
         ];
     }
 }

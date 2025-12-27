@@ -107,6 +107,7 @@
                             id="id_lomba"
                             name="id_lomba"
                             class="form-control @error('id_lomba') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                            disabled
                             required
                         >
                             <option value="">Select a campetion</option>
@@ -119,6 +120,16 @@
                                     {{ $message }}
                                 </div>
                             @enderror
+                    </div>
+
+                    <!-- Registration Fee Display -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Registration Fee
+                        </label>
+                        <div id="registration-fee" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-100 text-[hsl(222,47%,11%)]">
+                            <span id="fee-amount">Please select a competition</span>
+                        </div>
                     </div>
                     
                     <!-- Contact Number Field -->
@@ -173,6 +184,70 @@
             </div>
         </div>
 <script>
+    // Pass lomba and grade data to JavaScript
+    const lombas = @json($lombas);
+    const grades = @json($grades);
+
+    // Function to update lomba options based on selected grade
+    function updateLombaOptions() {
+        const gradeSelect = document.getElementById('id_grade');
+        const lombaSelect = document.getElementById('id_lomba');
+        const selectedGradeId = gradeSelect.value;
+
+        // Clear current lomba options
+        lombaSelect.innerHTML = '<option value="">Select a competition</option>';
+
+        if (selectedGradeId) {
+            lombaSelect.disabled = false;
+            const selectedGrade = grades.find(grade => grade.id == selectedGradeId);
+            if (selectedGrade && selectedGrade.lomba && selectedGrade.lomba.length > 0) {
+                selectedGrade.lomba.forEach(lomba => {
+                    const option = document.createElement('option');
+                    option.value = lomba.id;
+                    option.textContent = lomba.nama_lomba;
+                    lombaSelect.appendChild(option);
+                });
+                // If only one lomba, auto-select it
+                if (selectedGrade.lomba.length === 1) {
+                    lombaSelect.value = selectedGrade.lomba[0].id;
+                    updateRegistrationFee();
+                }
+            }
+        } else {
+            lombaSelect.disabled = true;
+            // Do not populate options when disabled
+        }
+        updateRegistrationFee();
+    }
+
+    // Function to update registration fee display
+    function updateRegistrationFee() {
+        const select = document.getElementById('id_lomba');
+        const feeAmount = document.getElementById('fee-amount');
+        const selectedValue = select.value;
+
+        if (selectedValue) {
+            const selectedLomba = lombas.find(lomba => lomba.id == selectedValue);
+            if (selectedLomba) {
+                feeAmount.textContent = 'Rp ' + selectedLomba.biaya_daftar.toLocaleString('id-ID');
+            }
+        } else {
+            feeAmount.textContent = 'Please select a competition';
+        }
+    }
+
+    // Add event listener to the grade select element
+    document.getElementById('id_grade').addEventListener('change', updateLombaOptions);
+
+    // Add event listener to the lomba select element
+    document.getElementById('id_lomba').addEventListener('change', updateRegistrationFee);
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateLombaOptions();
+        updateRegistrationFee();
+    });
+
      function previewImage(event) {
         const image = document.querySelector('#image');
 

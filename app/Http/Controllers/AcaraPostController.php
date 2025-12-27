@@ -58,6 +58,7 @@ class AcaraPostController extends Controller
             'nama_acara' => 'required|string|max:255',
             'tanggal_acara' => 'required|date',
             'keterangan' => 'required|string|max:255',
+            'biaya' => 'required|integer|min:0',
         ]);
 
          // Generate a unique uuid

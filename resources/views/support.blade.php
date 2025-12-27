@@ -81,7 +81,7 @@
                         >
                             <option value="">Select a campetion</option>
                             @foreach($lombas as $lomba)
-                                <option value="{{ $lomba->id }}" data-biaya="{{ $lomba->biaya_daftar }}">{{ $lomba->nama_lomba }}</option>
+                                <option value="{{ $lomba->id }}">{{ $lomba->nama_lomba }}</option>
                             @endforeach
                         </select>
                             @error('id_lomba')
@@ -91,22 +91,7 @@
                             @enderror
                     </div>
 
-                    <!-- Registration Fee Field -->
-                    <div class="mb-6">
-                        <label for="biaya_tiket_display" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
-                            Registration Fee
-                        </label>
-                        <input
-                            type="text"
-                            id="biaya_tiket_display"
-                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg bg-gray-100 cursor-not-allowed"
-                            readonly
-                            placeholder="Select a competition to see the fee"
-                        >
-                        <input type="hidden" id="biaya_tiket" name="biaya_tiket" value="0">
-                    </div>
-                    
-                    <!-- Event Name Selection Field -->
+                     <!-- Event Name Selection Field -->
                     <div class="mb-6">
                         <label for="id_acara" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
                             Event Name *
@@ -126,6 +111,22 @@
                                 </div>
                             @enderror
                     </div>
+
+                    <!-- Cost Field -->
+                    <div class="mb-6">
+                        <label for="biaya_tiket_display" class="block text-sm font-medium text-[hsl(222,47%,11%)] mb-2">
+                            Cost
+                        </label>
+                        <input
+                            type="text"
+                            id="biaya_tiket_display"
+                            class="w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg bg-gray-100 cursor-not-allowed"
+                            readonly
+                            placeholder="Select an event to see the cost"
+                        >
+                        <input type="hidden" id="biaya_tiket" name="biaya_tiket" value="0">
+                    </div>
+                    
                     
                     <!-- Contact Number Field -->
                     <div class="mb-6">
@@ -190,17 +191,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Menambahkan event listener untuk perubahan pada dropdown lomba
     lombaSelect.addEventListener('change', function() {
         const selectedLombaId = this.value;
-        const selectedOption = this.options[this.selectedIndex];
-        const biayaDaftar = selectedOption.getAttribute('data-biaya');
 
         // Reset dropdown id acara
-        idAcaraSelect.innerHTML = '<option value="">Select a competition date</option>';
+        idAcaraSelect.innerHTML = '<option value="">Select an event</option>';
 
         if (selectedLombaId) {
-            // Set biaya tiket
-            document.getElementById('biaya_tiket_display').value = 'Rp ' + parseInt(biayaDaftar).toLocaleString('id-ID');
-            document.getElementById('biaya_tiket').value = biayaDaftar;
-
             // Filter data acaras berdasarkan lomba yang dipilih
             const filteredAcaras = acarasData.filter(acara => acara.id_lomba == selectedLombaId);
 
@@ -213,17 +208,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     const option = document.createElement('option');
                     option.value = acara.id;
                     option.textContent = acara.nama_acara;
+                    option.setAttribute('data-biaya', acara.biaya);
                     idAcaraSelect.appendChild(option);
                 });
             } else {
                 // Jika tidak ada acara untuk lomba yang dipilih, disable dropdown id acara
                 idAcaraSelect.disabled = true;
-                idAcaraSelect.innerHTML = '<option value="">No dates available for this competition</option>';
+                idAcaraSelect.innerHTML = '<option value="">No events available for this competition</option>';
             }
         } else {
             // Jika tidak ada lomba yang dipilih, disable dropdown id acara dan reset biaya
             idAcaraSelect.disabled = true;
             idAcaraSelect.innerHTML = '<option value="">Select a competition first</option>';
+            document.getElementById('biaya_tiket_display').value = '';
+            document.getElementById('biaya_tiket').value = '0';
+        }
+    });
+
+    // Menambahkan event listener untuk perubahan pada dropdown id acara
+    idAcaraSelect.addEventListener('change', function() {
+        const selectedAcaraId = this.value;
+        const selectedOption = this.options[this.selectedIndex];
+        const biaya = selectedOption.getAttribute('data-biaya');
+
+        if (selectedAcaraId) {
+            // Set biaya tiket
+            document.getElementById('biaya_tiket_display').value = 'Rp ' + parseInt(biaya).toLocaleString('id-ID');
+            document.getElementById('biaya_tiket').value = biaya;
+        } else {
+            // Reset biaya jika tidak ada acara yang dipilih
             document.getElementById('biaya_tiket_display').value = '';
             document.getElementById('biaya_tiket').value = '0';
         }

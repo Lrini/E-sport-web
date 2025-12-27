@@ -19,6 +19,7 @@ class AcaraFactory extends Factory
             'nama_acara' => $this->faker->word(),
             'tanggal_acara' => $this->faker->date(),
             'keterangan' => $this->faker->sentence(),
+            'biaya' => $this->faker->numberBetween(10000, 50000),
         ];
     }
 }

@@ -14,21 +14,6 @@
             enctype="multipart/form-data">
             @csrf
 
-            <!-- Lomba Selection -->
-            <div>
-                <label for="id_lomba" class="block text-sm font-medium text-foreground mb-2">Lomba *</label>
-                <select id="id_lomba" name="id_lomba" required
-                    class="w-full px-4 py-3 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
-                    <option value="">Pilih Lomba</option>
-                    @foreach($lombas as $lomba)
-                        <option value="{{ $lomba->id }}">{{ $lomba->nama_lomba }}</option>
-                    @endforeach
-                </select>
-                @error('id_lomba')
-                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
             <!-- Tingkat Grade -->
             <div>
                 <label for="tingkat" class="block text-sm font-medium text-foreground mb-2">Tingkat Grade *</label>

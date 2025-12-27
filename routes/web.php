@@ -30,7 +30,7 @@ Route::get('/', function () {
 Route::get('/participant', function () {
     $lombas = lomba::all();
     $acaras = acara::all();
-    $grades = grade::all();
+    $grades = grade::with('lomba')->get();
     return view('participant', compact('lombas', 'acaras', 'grades'));
 });
 
@@ -74,3 +74,7 @@ Route::resource('admin/dashboard/grade', App\Http\Controllers\GradePostControlle
 // Resource routes for managing 'penonton' in the admin dashboard
 Route::get('admin/dashboard/penonton/data', [App\Http\Controllers\PenontonPostController::class, 'getdata'])->name('penonton.data')->middleware('auth');// route untuk mengambil data penonton dalam bentuk json
 Route::resource('admin/dashboard/penonton', App\Http\Controllers\PenontonPostController::class)->middleware('auth');// route resource untuk mengelola data penonton
+
+// Resource routes for managing 'peserta' in the admin dashboard
+Route::get('admin/dashboard/peserta/data', [App\Http\Controllers\PesertaPostController::class, 'getdata'])->name('peserta.data')->middleware('auth');// route untuk mengambil data peserta dalam bentuk json
+Route::resource('admin/dashboard/peserta', App\Http\Controllers\PesertaPostController::class)->middleware('auth');// route resource untuk mengelola data peserta

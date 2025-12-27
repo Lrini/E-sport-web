@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\lomba;
 
-class peserta extends Model
+class Peserta extends Model
 {
     use HasFactory;
 
@@ -20,11 +20,18 @@ class peserta extends Model
         'uuid',
         'image',
         'id_grade',
+        'status_pembayaran',
     ];
 
     // relasi many to one antara peserta dan lomba
     public function lomba()
     {
         return $this->belongsTo(lomba::class, 'id_lomba', 'id');
+    }
+
+    // relasi many to one antara peserta dan grade
+    public function grade()
+    {
+        return $this->belongsTo(grade::class, 'id_grade', 'id');
     }
 }

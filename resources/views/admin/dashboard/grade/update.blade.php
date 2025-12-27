@@ -13,19 +13,8 @@
             <div>
                 <label for="tingkat" class="block text-sm font-medium text-gray-700">Tingkatan</label>
                 <input type="text" name="tingkat" id="tingkat" value="{{ old('tingkat', $grade->tingkat) }}" required
-                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">  
-            </div>
-            <div>
-                <label for="id_lomba" class="block text-sm font-medium text-gray-700">Lomba</label>
-                <select name="id_lomba" id="id_lomba" required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">
-                    <option value="" disabled {{ old('id_lomba', $grade->id_lomba) ? '' : 'selected' }}>Pilih Lomba</option>
-                    @foreach($lombas as $lomba)
-                        <option value="{{ $lomba->id }}" {{ old('id_lomba', $grade->id_lomba) == $lomba->id ? 'selected' : '' }}>
-                            {{ $lomba->nama_lomba }}
-                        </option>
-                    @endforeach
-                </select>
+            </div>
             <div class="flex justify-end space-x-4">
                 <a href="{{ route('grade.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200">
                     Batal

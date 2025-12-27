@@ -52,6 +52,16 @@
                 @enderror
             </div>
 
+            <!-- Biaya Acara -->
+            <div>
+                <label for="biaya" class="block text-sm font-medium text-foreground mb-2">Biaya *</label>
+                <input type="number" id="biaya" name="biaya" required min="0"
+                    class="w-full px-4 py-3 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                @error('biaya')
+                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Submit Button -->
             <div class="flex gap-3 pt-4">
                 <button type="submit"
