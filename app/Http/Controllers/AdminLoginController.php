@@ -27,7 +27,7 @@ class AdminLoginController extends Controller
     {
         //season invalidate digunakan untuk menghapus session yang sedang aktif
         //season regenerateToken digunakan untuk menghindari serangan CSRF
-        auth()->logout();
+        Auth::guard('admin')->logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 

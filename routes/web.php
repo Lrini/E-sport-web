@@ -78,3 +78,7 @@ Route::resource('admin/dashboard/penonton', App\Http\Controllers\PenontonPostCon
 // Resource routes for managing 'peserta' in the admin dashboard
 Route::get('admin/dashboard/peserta/data', [App\Http\Controllers\PesertaPostController::class, 'getdata'])->name('peserta.data')->middleware('auth');// route untuk mengambil data peserta dalam bentuk json
 Route::resource('admin/dashboard/peserta', App\Http\Controllers\PesertaPostController::class)->middleware('auth');// route resource untuk mengelola data peserta
+
+// Resource routes for managing 'admin' in the admin dashboard
+Route::get('admin/dashboard/admin/data', [App\Http\Controllers\adminPostController::class, 'getdata'])->name('admin.data');// route untuk mengambil data admin dalam bentuk json
+Route::resource('admin/dashboard/admin', App\Http\Controllers\adminPostController::class)->middleware('auth');// route resource untuk mengelola data admin
