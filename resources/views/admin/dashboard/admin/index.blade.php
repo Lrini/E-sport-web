@@ -147,7 +147,7 @@ $(function() {
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
         ajax: '{{ route('admin.data') }}',
         columns: [
-            { data: 'nama', name: 'nama', width: '20%' },
+            { data: 'name', name: 'nama', width: '20%' },
             { data: 'email', name: 'email', width: '25%' },
             {
                 data: null,

@@ -45,8 +45,8 @@ class AdminLoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        // Attempt to authenticate the user using the 'web' guard or custom guard if configured
-        if (Auth::attempt($credentials)) {
+        // Attempt to authenticate the user using the admin guard
+        if (Auth::guard('admin')->attempt($credentials) && Auth::guard('admin')->user()->role === 'admin') {
             $request->session()->regenerate();
 
             // Always redirect to admin dashboard after login

@@ -17,7 +17,7 @@ class isAdmin
     // fungsi ini memeriksa apakah user yang mengakses adalah admin
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role !== 'admin') { // Check if user is logged in and has admin role
+        if (!auth('admin')->check() || auth('admin')->user()->role !== 'admin') { // Check if user is logged in and has admin role
             abort(403);
         }
         return $next($request);
