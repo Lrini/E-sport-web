@@ -8,6 +8,8 @@ use App\Models\lomba;
 use App\Models\grade;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class PesertaPostController extends Controller
 {
@@ -55,8 +57,19 @@ class PesertaPostController extends Controller
 
         // Handle file upload if present
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('bukti_pembayaran', 'public');
-            $validatedData['image'] = $imagePath;
+            $image = $request->file('image');
+            $nama = Str::slug($request->penanggung_jawab,'-');
+            $filename = $nama.'_'.$uuid.'_'.time().'.jpg';
+            $img = Image::make($image->getRealPath())
+            ->resize(1080,null,function($constraint){
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            }) ->encode('jpg',75);
+            $savePath = storage_path('app/public/bukti_pembayaran/'.$filename);
+            $img->save($savePath);
+            $validatedData['image'] = 'bukti_pembayaran/'.$filename;
+           // $imagePath = $request->file('image')->store('bukti_pembayaran', 'public');
+        //$validatedData['image'] = $imagePath;
         }
 
         // Create a new Peserta record

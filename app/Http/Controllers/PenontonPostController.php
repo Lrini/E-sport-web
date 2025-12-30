@@ -8,6 +8,8 @@ use App\Models\lomba;
 use App\Models\acara;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class PenontonPostController extends Controller
 {
@@ -62,9 +64,24 @@ class PenontonPostController extends Controller
         }
 
         // Handle file upload if present
+        // if ($request->hasFile('image')) {
+        //    // $imagePath = $request->file('image')->store('bukti_tonton', 'public');
+        //     //$validatedData['image'] = $imagePath;
+        // }
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('bukti_tonton', 'public');
-            $validatedData['image'] = $imagePath;
+            $image = $request->file('image');
+            $nama = Str::slug($request->nama_lengkap,'-');
+            $filename = $nama.'_'.$uuid.'_'.time().'.jpg';
+            $img = Image::make($image->getRealPath())
+            ->resize(1080,null,function($constraint){
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            }) ->encode('jpg',75);
+            $savePath = storage_path('app/public/bukti_tonton/'.$filename);
+            $img->save($savePath);
+            $validatedData['image'] = 'bukti_tonton/'.$filename;
+           // $imagePath = $request->file('image')->store('bukti_pembayaran', 'public');
+        //$validatedData['image'] = $imagePath;
         }
 
         // Create a new Penonton record
