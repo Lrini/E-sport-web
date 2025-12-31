@@ -65,9 +65,14 @@ class PesertaPostController extends Controller
                 $constraint->aspectRatio();
                 $constraint->upsize();
             }) ->encode('jpg',75);
-            $savePath = storage_path('app/public/bukti_pembayaran/'.$filename);
-            $img->save($savePath);
-            $validatedData['image'] = 'bukti_pembayaran/'.$filename;
+            $filePath = 'bukti_bayar/'.$filename;
+            Storage::disk('google')->put($filePath, $img->stream());
+
+            // Simpan link / path ke database
+            $validatedData['image'] = $filePath;
+            // $savePath = storage_path('app/public/bukti_pembayaran/'.$filename);
+            // $img->save($savePath);
+            // $validatedData['image'] = 'bukti_pembayaran/'.$filename;
            // $imagePath = $request->file('image')->store('bukti_pembayaran', 'public');
         //$validatedData['image'] = $imagePath;
         }

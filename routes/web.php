@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\PesertaPostController;
 use App\Http\Controllers\PenontonPostController;
 use App\Http\Controllers\GradePostController;
+use App\Http\Controllers\GoogleDriveController;
+use Google\Client;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,3 +84,19 @@ Route::resource('admin/dashboard/peserta', App\Http\Controllers\PesertaPostContr
 // Resource routes for managing 'admin' in the admin dashboard
 Route::get('admin/dashboard/admin/data', [App\Http\Controllers\adminPostController::class, 'getdata'])->name('admin.data')->middleware(['auth:admin', 'isadmin']);// route untuk mengambil data admin dalam bentuk json
 Route::resource('admin/dashboard/admin', App\Http\Controllers\adminPostController::class)->middleware(['auth:admin', 'isadmin']);// route resource untuk mengelola data admin
+
+// untuk testing google drive upload
+Route::get('/auth/google', [GoogleDriveController::class, 'redirect']);
+Route::get('/auth/google/redirect', [GoogleDriveController::class, 'redirect']);
+Route::get('/auth/google/callback', [GoogleDriveController::class, 'callback']);
+
+//coba upload file ke google drive
+use Illuminate\Support\Facades\Storage;
+
+Route::get('/test-upload', function () {
+    $fileName = 'test_'.time().'.txt';
+    Storage::disk('google')->put($fileName, 'Upload pertama dari Laravel!');
+    return 'Upload berhasil ke Google Drive!';
+});
+
+
