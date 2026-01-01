@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Models\lomba;
 use App\Models\acara;
 use App\Models\grade;
@@ -91,12 +92,10 @@ Route::get('/auth/google/redirect', [GoogleDriveController::class, 'redirect']);
 Route::get('/auth/google/callback', [GoogleDriveController::class, 'callback']);
 
 //coba upload file ke google drive
-use Illuminate\Support\Facades\Storage;
-
-Route::get('/test-upload', function () {
-    $fileName = 'test_'.time().'.txt';
-    Storage::disk('google')->put($fileName, 'Upload pertama dari Laravel!');
-    return 'Upload berhasil ke Google Drive!';
-});
+// Route::get('/test-upload', function () {
+//     $fileName = 'test_'.time().'.txt';
+//     Storage::disk('google')->put($fileName, 'Upload pertama dari Laravel!');
+//     return 'Upload berhasil ke Google Drive!';
+// });
 
 

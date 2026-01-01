@@ -55,11 +55,34 @@
                     <option value="batal" {{ old('status_pembayaran', $peserta->status_pembayaran) == 'batal' ? 'selected' : '' }}>Batal</option>
                 </select>
             </div>
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">Ganti Bukti Pembayaran (Opsional)</label>
+                <input type="file" name="image" id="image" class="block w-full mt-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary/90">
+            </div>
+
             @if($peserta->image)
             <div>
-                <label class="block text-sm font-medium text-gray-700">Current Bukti Pembayaran</label>
-                <div class="mt-1">
-                    <img src="{{ Storage::url($peserta->image) }}" alt="Bukti Pembayaran" class="max-w-xs h-auto border border-gray-300 rounded-md cursor-pointer" onclick="openImageModal('{{ Storage::url($peserta->image) }}')">
+                <label class="block text-sm font-medium text-gray-700 text-red-600 font-bold">Bukti Pembayaran Saat Ini:</label>
+                <div class="mt-2">
+                    @php
+                        // Gunakan endpoint thumbnail Google Drive yang lebih stabil untuk tag IMG
+                        $displayUrl = $peserta->gdrive_url 
+                            ? "https://lh3.googleusercontent.com/d/" . $peserta->image 
+                            : Storage::url($peserta->image);
+                    @endphp
+
+                    <img src="{{ $displayUrl }}" 
+                         alt="Bukti Pembayaran" 
+                         class="max-w-xs h-auto border-2 border-primary rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-200" 
+                         onerror="this.src='https://placehold.co/400x600?text=Gambar+Tidak+Muncul'"
+                         onclick="openImageModal('{{ $displayUrl }}')">
+                    
+                    @if($peserta->gdrive_url)
+                    <p class="mt-2 text-xs text-gray-500 italic">* Jika gambar tidak muncul, pastikan file di Drive sudah 'Public'</p>
+                    <a href="{{ $peserta->gdrive_url }}" target="_blank" class="inline-block mt-1 text-sm text-blue-600 hover:underline">
+                        Buka Original di Google Drive ↗
+                    </a>
+                    @endif
                 </div>
             </div>
             @endif

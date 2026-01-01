@@ -21,6 +21,7 @@ class Peserta extends Model
         'image',
         'id_grade',
         'status_pembayaran',
+        'gdrive_url',
     ];
 
     // relasi many to one antara peserta dan lomba

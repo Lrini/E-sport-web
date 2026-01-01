@@ -25,6 +25,7 @@ class CreatePesertas extends Migration
             $status = ['pending', 'lunas', 'batal'];
              $table->enum('status_pembayaran', $status)->default('pending');
             $table->timestamps();
+            $table->string('gdrive_url')->nullable();
         });
     }
 
