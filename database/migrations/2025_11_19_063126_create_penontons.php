@@ -25,6 +25,9 @@ class CreatePenontons extends Migration
             $table->integer('biaya_tiket');
             $status = ['pending', 'lunas', 'batal'];
             $table->enum('status_pembayaran', $status)->default('pending');
+            $table->string('tiket_code')->nullable()->unique();
+            $table->timestamp('tiket_generated_at')->nullable();
+            $table->timestamp('checked_in_at')->nullable();
             $table->timestamps();
         });
     }

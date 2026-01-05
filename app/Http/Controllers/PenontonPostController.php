@@ -31,6 +31,7 @@ class PenontonPostController extends Controller
                 'no_hp' => $penonton->no_hp,
                 'biaya_tiket' => 'Rp ' . number_format($penonton->biaya_tiket, 0, ',', '.'),
                 'status_pembayaran' => ucfirst($penonton->status_pembayaran),
+                'tiket_code' => $penonton->tiket_code,
             ];
         });
         return response()->json(['data' => $penontons]);
@@ -124,6 +125,11 @@ class PenontonPostController extends Controller
             $validatedData['image'] = $imagePath;
         }
 
+        if ($penonton->status_pembayaran !== 'lunas'){
+            $penonton->tiket_code = $this->generateTiketCode();
+            $penonton->tiket_generated_at = now();
+        }
+
         $penonton->update($validatedData);
 
         return redirect()->route('penonton.index')->with('success', 'Penonton berhasil diperbarui.');
@@ -143,4 +149,12 @@ class PenontonPostController extends Controller
         return redirect()->route('penonton.index')->with('success', 'Penonton berhasil dihapus.');
     }
 
+    private function generateTiketCode()
+    {
+        do{
+        $code ='EVNT-NTN-'.Str::upper(Str::random(6));
+    }while (penonton::where('tiket_code', $code)->exists());
+
+        return $code;
+    }
 }

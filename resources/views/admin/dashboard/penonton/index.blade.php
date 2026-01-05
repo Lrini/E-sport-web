@@ -29,6 +29,7 @@
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">No hp</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground" style="width: 15%;">Biaya Tiket</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground" style="width: 15%;">Status Pembayaran</th>
+                        <th class="w-1/6 px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">QR ticket</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
                     </tr>
                 </thead>
@@ -158,6 +159,24 @@ $(function() {
             { data: 'no_hp', name: 'no_hp' },
             { data: 'biaya_tiket', name: 'biaya_tiket' },
             { data: 'status_pembayaran', name: 'status_pembayaran' },
+            {
+                data: null,
+                name: 'qr_ticket',
+                orderable: false,
+                searchable: false,
+                render: function(data, type, row) {
+                    if (row.tiket_code) {
+                        return `
+                            <div class="p-2 bg-white inline-block">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${row.tiket_code}" alt="QR Code">
+                            </div>
+                            <p class="text-sm mt-2 font-mono">${row.tiket_code}</p>
+                        `;
+                    } else {
+                        return '<span class="text-red-500">Belum ada tiket</span>';
+                    }
+                }
+            },
             {
                 data: null,
                 name: 'aksi',
