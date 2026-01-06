@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
+use App\Models\admin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -33,21 +33,75 @@ class AdminLoginTest extends TestCase
     }
 
     /**
-     * Test login succeeds with correct credentials.
+     * Test login succeeds for admin role and redirects to dashboard.
      */
-    public function test_login_succeeds_with_valid_credentials()
+    public function test_login_succeeds_for_admin_role()
     {
-        $user = User::factory()->create([
+        $admin = admin::factory()->create([
             'email' => 'admin@example.com',
-            'password' => bcrypt('admin123'),
+            'password' => bcrypt('password'),
+            'role' => 'admin',
         ]);
 
         $response = $this->post('/admin/login', [
             'email' => 'admin@example.com',
-            'password' => 'admin123',
+            'password' => 'password',
         ]);
 
         $response->assertRedirect('/admin/dashboard');
-        $this->assertAuthenticatedAs($user);
+        $this->assertAuthenticatedAs($admin, 'admin');
+    }
+
+    /**
+     * Test login succeeds for ticket role and redirects to tiketing.
+     */
+    public function test_login_succeeds_for_ticket_role()
+    {
+        $ticket = admin::factory()->create([
+            'email' => 'ticket@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'ticket',
+        ]);
+
+        $response = $this->post('/admin/login', [
+            'email' => 'ticket@example.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirect('/admin/tiketing');
+        $this->assertAuthenticatedAs($ticket, 'admin');
+    }
+
+    /**
+     * Test login fails for unknown role.
+     */
+    public function test_login_fails_for_unknown_role()
+    {
+        $unknown = admin::factory()->create([
+            'email' => 'unknown@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'unknown',
+        ]);
+
+        $response = $this->post('/admin/login', [
+            'email' => 'unknown@example.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertSessionHasErrors('email');
+        $this->assertGuest('admin');
+    }
+
+    /**
+     * Test showLoginForm redirects if already authenticated.
+     */
+    public function test_show_login_form_redirects_if_authenticated()
+    {
+        $admin = admin::factory()->create([
+            'role' => 'admin',
+        ]);
+
+        $response = $this->actingAs($admin, 'admin')->get('/admin/login');
+        $response->assertRedirect('/admin/dashboard');
     }
 }

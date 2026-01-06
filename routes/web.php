@@ -61,6 +61,10 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard.index');
 })->name('admin.dashboard')->middleware(['auth:admin', 'isadmin']);
 
+Route::get('/admin/tiketing', function () {
+    return view('admin.tiketing.index');
+})->name('admin.tiketing')->middleware('auth:admin');
+
 
 // Resource routes for managing 'acara' in the admin dashboard
 Route::get('admin/dashboard/acara/data', [App\Http\Controllers\AcaraPostController::class, 'getdata'])->name('acara.data')->middleware(['auth:admin', 'isadmin']);// route untuk mengambil data acara dalam bentuk json

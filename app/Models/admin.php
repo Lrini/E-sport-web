@@ -14,7 +14,7 @@ class admin extends Authenticatable
         'nama',
         'email',
         'password',
-        
+        'role',
     ];
 
     protected $hidden = [
@@ -24,6 +24,5 @@ class admin extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 }
