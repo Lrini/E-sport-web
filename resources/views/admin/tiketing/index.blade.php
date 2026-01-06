@@ -26,6 +26,22 @@
     const startBtn = document.getElementById('startScan');
     const stopBtn = document.getElementById('stopScan');
 
+    function playBeep() {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.type = 'sine'; // Jenis bunyi
+        oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // Frekuensi tinggi (Pitch)
+        gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime); // Volume
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.2); // Bunyi selama 0.2 detik
+    }
+
     function startScanning() {
         resultDiv.innerText = "Menginisialisasi kamera...";
         resultDiv.className = "mt-4 text-center text-blue-600 font-semibold text-lg";
@@ -38,6 +54,7 @@
             },
             qrCodeMessage => {
                 // Berhenti scan agar tidak duplikat saat proses kirim data
+                playBeep();
                 html5QrCode.stop().then(() => {
                     startBtn.style.display = 'inline-block';
                     stopBtn.style.display = 'none';
