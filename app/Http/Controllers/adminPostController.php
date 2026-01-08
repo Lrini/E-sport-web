@@ -63,10 +63,10 @@ class adminPostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\admin  $admin
+     * @param  \App\Models\User  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(admin $admin)
+    public function show(User $admin)
     {
         //
     }

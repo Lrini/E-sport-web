@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Penonton;
+use App\Models\penonton as Penonton;
 
 
 use Illuminate\Http\Request;
@@ -11,10 +11,10 @@ class CheckinController extends Controller
     public function checkin(Request $request)
     {
         $request->validate([
-            'ticket_code' => 'required|string'
+            'tiket_code' => 'required|string'
         ]);
 
-        $penonton = Penonton::where('tiket_code', $request->ticket_code)->first();
+        $penonton = Penonton::where('tiket_code', $request->tiket_code)->first();
 
         if (!$penonton) {
             return response()->json([
@@ -38,5 +38,22 @@ class CheckinController extends Controller
             'status' => 'success',
             'message' => 'Check-in berhasil'
         ]);
+    }
+
+    public function getData()
+    {
+    // Mengambil data langsung dari tabel penonton tanpa relasi
+    $penontons = penonton::whereNotNull('checked_in_at')->get()->map(function ($penonton) {
+        return [
+            'id' => $penonton->id,
+            'nama_lengkap' => $penonton->nama_lengkap,
+            // Memastikan checked_in_at diformat jika tidak null
+            'checked_in_at' => $penonton->checked_in_at
+                ? \Carbon\Carbon::parse($penonton->checked_in_at)->format('Y-m-d')
+                : 'Belum Check-in',
+        ];
+    });
+
+    return response()->json(['data' => $penontons]);
     }
 }

@@ -136,7 +136,9 @@
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+@endsection
+
+@push('scripts')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <script>
@@ -147,6 +149,9 @@ $(function() {
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
         ajax: {
             url: '{{ route('penonton.data') }}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
             error: function(xhr, error, thrown) {
                 console.error('DataTable AJAX Error:', xhr, error, thrown);
                 alert('Gagal memuat data penonton. Periksa koneksi atau login Anda.');
@@ -252,4 +257,4 @@ $(function() {
     });
 });
 </script>
-@endsection
+@endpush

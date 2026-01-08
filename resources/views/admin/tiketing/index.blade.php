@@ -81,7 +81,7 @@
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({ ticket_code: code })
+            body: JSON.stringify({ tiket_code: code })
         })
         .then(res => res.json())
         .then(data => {

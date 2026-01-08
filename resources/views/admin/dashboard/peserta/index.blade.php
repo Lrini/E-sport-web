@@ -135,7 +135,24 @@
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+@endsection
+
+<!-- Image Modal -->
+<div id="imageModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-md bg-white">
+        <div class="flex justify-between items-center pb-3">
+            <h3 class="text-lg font-medium text-gray-900">Bukti Pembayaran</h3>
+            <button onclick="closeImageModal()" class="text-gray-400 hover:text-gray-600">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+        <div class="mt-3">
+            <img id="modalImage" src="" alt="Bukti Pembayaran" class="w-full h-auto">
+        </div>
+    </div>
+</div>
+
+@push('scripts')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <script>
@@ -146,6 +163,9 @@ $(function() {
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
         ajax: {
             url: '{{ route('peserta.data') }}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
             error: function(xhr, error, thrown) {
                 console.error('DataTable AJAX Error:', xhr, error, thrown);
                 alert('Gagal memuat data peserta. Periksa koneksi atau login Anda.');
@@ -250,19 +270,4 @@ $(function() {
     });
 });
 </script>
-
-<!-- Image Modal -->
-<div id="imageModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-    <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-md bg-white">
-        <div class="flex justify-between items-center pb-3">
-            <h3 class="text-lg font-medium text-gray-900">Bukti Pembayaran</h3>
-            <button onclick="closeImageModal()" class="text-gray-400 hover:text-gray-600">
-                <span class="text-2xl">&times;</span>
-            </button>
-        </div>
-        <div class="mt-3">
-            <img id="modalImage" src="" alt="Bukti Pembayaran" class="w-full h-auto">
-        </div>
-    </div>
-</div>
-@endsection
+@endpush

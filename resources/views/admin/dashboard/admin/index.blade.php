@@ -136,7 +136,11 @@
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+@endsection
+
+@include('admin.dashboard.modals.adminCreate')
+
+@push('scripts')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <script>
@@ -145,7 +149,16 @@ $(function() {
     var table = $('#admin-table').DataTable({
         processing: true,
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
-        ajax: '{{ route('admin.data') }}',
+        ajax: {
+            url: '{{ route('admin.data') }}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            error: function(xhr, error, thrown) {
+                console.error('DataTable AJAX Error:', xhr, error, thrown);
+                alert('Gagal memuat data admin. Periksa koneksi atau login Anda.');
+            }
+        },
         columns: [
             { data: 'name', name: 'nama', width: '20%' },
             { data: 'email', name: 'email', width: '25%' },
@@ -225,6 +238,4 @@ $(function() {
     });
 });
 </script>
-@endsection
-
-@include('admin.dashboard.modals.adminCreate')
+@endpush

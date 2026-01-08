@@ -138,7 +138,11 @@
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+@endsection
+
+@include('admin.dashboard.modals.acaraCreate')
+
+@push('scripts')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <script>
@@ -147,7 +151,16 @@ $(function() {
     var table = $('#acara-table').DataTable({
         processing: true,
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
-        ajax: '{{ route('acara.data') }}',
+        ajax: {
+            url: '{{ route('acara.data') }}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            error: function(xhr, error, thrown) {
+                console.error('DataTable AJAX Error:', xhr, error, thrown);
+                alert('Gagal memuat data acara. Periksa koneksi atau login Anda.');
+            }
+        },
         columns: [
             { data: 'nama_lomba', name: 'nama_lomba', width: '20%' },
             { data: 'nama_acara', name: 'nama_acara', width: '25%' },
@@ -229,6 +242,4 @@ $(function() {
     });
 });
 </script>
-@endsection
-
-@include('admin.dashboard.modals.acaraCreate')
+@endpush

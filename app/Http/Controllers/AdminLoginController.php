@@ -13,12 +13,17 @@ class AdminLoginController extends Controller
      **/
     public function showLoginForm()
     {
-        //auth()->check() digunakan untuk memeriksa apakah admin sudah login
+        // Check if user is authenticated with admin or tiket guard
         if (Auth::guard('admin')->check()) {
             $user = Auth::guard('admin')->user();
             if ($user->role === 'admin') {
                 return redirect()->intended('/admin/dashboard');
             } elseif ($user->role === 'tiket') {
+                return redirect()->intended('admin/tiketing');
+            }
+        } elseif (Auth::guard('tiket')->check()) {
+            $user = Auth::guard('tiket')->user();
+            if ($user->role === 'tiket') {
                 return redirect()->intended('admin/tiketing');
             }
         }
@@ -33,6 +38,7 @@ class AdminLoginController extends Controller
         //season invalidate digunakan untuk menghapus session yang sedang aktif
         //season regenerateToken digunakan untuk menghindari serangan CSRF
         Auth::guard('admin')->logout();
+        Auth::guard('tiket')->logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
@@ -50,22 +56,28 @@ class AdminLoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        // Attempt to authenticate the user using the admin guard
-        if (Auth::guard('admin')->attempt($credentials)) {
-            $user = Auth::guard('admin')->user();
-            $request->session()->regenerate();
+        // Find the user by email to determine the guard
+        $user = \App\Models\User::where('email', $credentials['email'])->first();
 
-            // Redirect based on role
-            if ($user->role === 'admin') {
-                return redirect('/admin/dashboard');
-            } elseif ($user->role === 'tiket') {
-                return redirect('admin/tiketing');
-            } else {
-                // If role is neither admin nor ticket, logout and throw exception
-                Auth::guard('admin')->logout();
-                throw ValidationException::withMessages([
-                    'email' => __('auth.failed'),
-                ]);
+        if ($user) {
+            $guard = ($user->role === 'admin') ? 'admin' : 'tiket';
+
+            // Attempt to authenticate using the appropriate guard
+            if (Auth::guard($guard)->attempt($credentials)) {
+                $request->session()->regenerate();
+
+                // Redirect based on role
+                if ($user->role === 'admin') {
+                    return redirect('/admin/dashboard');
+                } elseif ($user->role === 'tiket') {
+                    return redirect('admin/tiketing');
+                } else {
+                    // If role is neither admin nor tiket, logout and throw exception
+                    Auth::guard($guard)->logout();
+                    throw ValidationException::withMessages([
+                        'email' => __('auth.failed'),
+                    ]);
+                }
             }
         }
 

@@ -6,6 +6,7 @@ use App\Models\lomba;
 use App\Models\acara;
 use App\Models\grade;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\CheckinController;
 use App\Http\Controllers\PesertaPostController;
 use App\Http\Controllers\PenontonPostController;
 use App\Http\Controllers\GradePostController;
@@ -55,7 +56,7 @@ Route::post('/support', [PenontonPostController::class, 'store']);
 //showLoginForm, login, dan logout mengacu pada method di AdminLoginController
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login.form');
 Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
-Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout')->middleware('auth:admin');
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout')->middleware('admin_or_ticket');
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard.index');
@@ -63,7 +64,7 @@ Route::get('/admin/dashboard', function () {
 
 Route::get('/admin/tiketing', function () {
     return view('admin.tiketing.index');
-})->name('admin.tiketing')->middleware('auth:admin');
+})->name('admin.tiketing')->middleware('auth:tiket');
 
 
 // Resource routes for managing 'acara' in the admin dashboard
@@ -101,5 +102,11 @@ Route::get('/auth/google/callback', [GoogleDriveController::class, 'callback']);
 //     Storage::disk('google')->put($fileName, 'Upload pertama dari Laravel!');
 //     return 'Upload berhasil ke Google Drive!';
 // });
+
+//untuk halaman penonton di tiketing admin
+Route::get('admin/tiketing/penonton', function () {
+    return view('admin.tiketing.penonton.index');
+})->name('admin.tiketing.penonton')->middleware(['auth:tiket', 'isticket']);
+Route::get('admin/tiketing/penonton/data',[CheckinController::class, 'getdata'])->name('tiketing.penonton.data')->middleware(['auth:tiket', 'isticket']);
 
 

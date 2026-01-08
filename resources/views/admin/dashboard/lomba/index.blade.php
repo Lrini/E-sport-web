@@ -146,7 +146,11 @@
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+@endsection
+
+@include('admin.dashboard.modals.lombaCreate')
+
+@push('scripts')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <script>
@@ -155,7 +159,16 @@ $(function() {
     var table = $('#lomba-table').DataTable({
         processing: true,
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
-        ajax: '{{ route('lomba.data') }}',
+        ajax: {
+            url: '{{ route('lomba.data') }}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            error: function(xhr, error, thrown) {
+                console.error('DataTable AJAX Error:', xhr, error, thrown);
+                alert('Gagal memuat data lomba. Periksa koneksi atau login Anda.');
+            }
+        },
         columns: [
             { data: 'nama_lomba', name: 'nama_lomba', width: '20%' },
             { data: 'deskripsi_lomba', name: 'deskripsi_lomba', width: '50%' },
@@ -237,6 +250,4 @@ $(function() {
     });
 });
 </script>
-@endsection
-
-@include('admin.dashboard.modals.lombaCreate')
+@endpush

@@ -85,7 +85,6 @@
   </main>
   
   <!-- JavaScript -->
-  <script src="js/app.js"></script>
-  <script src="js/admin-auth.js"></script> 
+  <script src="/js/app.js"></script>
 </body>
 </html>

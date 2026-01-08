@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class isAdmin
+class IsTicket
 {
     /**
      * Handle an incoming request.
@@ -14,12 +14,11 @@ class isAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    // fungsi ini memeriksa apakah user yang mengakses adalah admin
     public function handle(Request $request, Closure $next)
     {
-        // Check if user is authenticated via admin guard and has admin role
-        if (!auth('admin')->check() || auth('admin')->user()->role !== 'admin') {
-            abort(403); // Deny access if not admin
+        // Check if user is authenticated via ticket guard and has ticket role
+        if (!auth('tiket')->check() || auth('tiket')->user()->role !== 'tiket') {
+            abort(403); // Deny access if not ticket
         }
 
         return $next($request);

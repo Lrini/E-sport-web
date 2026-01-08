@@ -1,9 +1,9 @@
-@extends('admin.dashboard.layouts.main')
+@extends('admin.tiketing.layouts.main')
 @section('section')
 <div class="overflow-hidden bg-white rounded-lg shadow-lg">
     <div class="px-6 py-4 text-white bg-gradient-to-r from-primary to-accent">
-        <h2 class="text-2xl font-bold">Daftar Grade</h2>
-        <p class="text-sm opacity-90">Kelola grade</p>
+        <h2 class="text-2xl font-bold">Daftar Penonton</h2>
+        <p class="text-sm opacity-90">Kelola penonton</p>
     </div>
      @if (session()->has('success'))
                 <div class="relative px-4 py-3 mb-6 text-green-700 bg-green-100 border border-green-400 rounded-lg" role="alert">
@@ -15,21 +15,17 @@
             @endif
     <div class="p-6">
         <div class="flex items-center justify-between mb-4">
-            <div>
-                <button id="open-grade-modal" class="px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary/90">
-                    Tambah Grade Baru
-                </button>
-            </div>
             <div class="text-sm text-muted-foreground">
-                Total: <span id="total-count">0</span> grade
+                Total: <span id="total-count">0</span> penonton
             </div>
         </div>
         <div class="overflow-x-auto">
-            <table id="grade-table" class="w-full border-collapse table-auto">
+            <table id="penonton-table" class="w-full border-collapse table-auto">
                 <thead class="bg-muted">
                     <tr>
-                        <th class="w-1/4 px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Grade</th>
-                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
+                        <th class="w-1/4 px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Nama</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Checked-in-at</th>
+                        
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -42,17 +38,17 @@
 
 <style>
 /* Custom DataTables Styling */
-#grade-table_wrapper .dataTables_length,
-#grade-table_wrapper .dataTables_filter,
-#grade-table_wrapper .dataTables_info,
-#grade-table_wrapper .dataTables_paginate {
+#penonton-table_wrapper .dataTables_length,
+#penonton-table_wrapper .dataTables_filter,
+#penonton-table_wrapper .dataTables_info,
+#penonton-table_wrapper .dataTables_paginate {
     margin-bottom: 1rem;
     color: #6b7280;
     font-size: 0.875rem;
 }
 
-#grade-table_wrapper .dataTables_length select,
-#grade-table_wrapper .dataTables_filter input {
+#penonton-table_wrapper .dataTables_length select,
+#penonton-table_wrapper .dataTables_filter input {
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
     padding: 0.5rem 0.75rem;
@@ -61,18 +57,18 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#grade-table_wrapper .dataTables_length select:focus,
-#grade-table_wrapper .dataTables_filter input:focus {
+#penonton-table_wrapper .dataTables_length select:focus,
+#penonton-table_wrapper .dataTables_filter input:focus {
     outline: none;
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-#grade-table_wrapper .dataTables_info {
+#penonton-table_wrapper .dataTables_info {
     padding-top: 0.5rem;
 }
 
-#grade-table_wrapper .dataTables_paginate .paginate_button {
+#penonton-table_wrapper .dataTables_paginate .paginate_button {
     padding: 0.5rem 0.75rem;
     margin: 0 0.125rem;
     border: 1px solid #d1d5db;
@@ -85,42 +81,42 @@
     transition: all 0.15s ease-in-out;
 }
 
-#grade-table_wrapper .dataTables_paginate .paginate_button:hover {
+#penonton-table_wrapper .dataTables_paginate .paginate_button:hover {
     background: #f3f4f6;
     border-color: #9ca3af;
     color: #111827;
 }
 
-#grade-table_wrapper .dataTables_paginate .paginate_button.current {
+#penonton-table_wrapper .dataTables_paginate .paginate_button.current {
     background: #3b82f6;
     border-color: #3b82f6;
     color: #ffffff;
 }
 
-#grade-table_wrapper .dataTables_paginate .paginate_button.disabled {
+#penonton-table_wrapper .dataTables_paginate .paginate_button.disabled {
     background: #f9fafb;
     border-color: #e5e7eb;
     color: #9ca3af;
     cursor: not-allowed;
 }
 
-#grade-table tbody tr {
+#penonton-table tbody tr {
     transition: background-color 0.15s ease-in-out;
 }
 
-#grade-table tbody tr:hover {
+#penonton-table tbody tr:hover {
     background-color: #f8fafc;
 }
 
-#grade-table tbody tr:nth-child(even) {
+#penonton-table tbody tr:nth-child(even) {
     background-color: #f9fafb;
 }
 
-#grade-table tbody tr:nth-child(odd) {
+#penonton-table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
-#grade-table_processing {
+#penonton-table_processing {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -135,54 +131,28 @@
 }
 </style>
 
-@endsection
-
-@include('admin.dashboard.modals.gradeCreate')
-
-@push('scripts')
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <script>
 $(function() {
     // Inisialisasi DataTable
-    var table = $('#grade-table').DataTable({
+    var table = $('#penonton-table').DataTable({
         processing: true,
         serverSide: false, // Ubah ke false untuk memuat semua data sekaligus
         ajax: {
-            url: '{{ route('grade.data') }}',
+            url: '{{ route('tiketing.penonton.data') }}',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             error: function(xhr, error, thrown) {
                 console.error('DataTable AJAX Error:', xhr, error, thrown);
-                alert('Gagal memuat data grade. Periksa koneksi atau login Anda.');
+                alert('Gagal memuat data penonton. Periksa koneksi atau login Anda.');
             }
         },
         columns: [
-            { data: 'tingkat', name: 'tingkat', width: '80%' },
-            {
-                data: null,
-                name: 'aksi',
-                orderable: false,
-                searchable: false,
-                width: '20%',
-                render: function(data, type, row) {
-                    return `
-                            <div class="flex flex-col space-y-2">
-                                <a class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-blue-500 rounded-md hover:bg-blue-600 w-20" href="/admin/dashboard/grade/${row.id}/edit">
-                                    Update
-                                </a>
-                                <form action="/admin/dashboard/grade/${row.id}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus grade ini?')" class="inline">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-500 rounded-md hover:bg-red-600 w-20">
-                                        Delete
-                                    </button>
-                                </form>
-                            </div>
-                    `;
-                }
-            }
+            { data: 'nama_lengkap', name: 'nama_lengkap' },
+            { data: 'checked_in_at', name: 'checked_in_at' }
         ],
         language: {
             processing: "Memproses...",
@@ -220,20 +190,20 @@ $(function() {
     });
 
     // Modal functionality
-    $('#open-grade-modal').on('click', function() {
-        $('#grade-modal').removeClass('hidden');
+    $('#open-penonton-modal').on('click', function() {
+        $('#penonton-modal').removeClass('hidden');
     });
 
-    $('#close-grade-modal, #cancel-grade').on('click', function() {
-        $('#grade-modal').addClass('hidden');
+    $('#close-penonton-modal, #cancel-penonton').on('click', function() {
+        $('#penonton-modal').addClass('hidden');
     });
 
     // Close modal when clicking outside
-    $('#grade-modal').on('click', function(e) {
+    $('#penonton-modal').on('click', function(e) {
         if (e.target === this) {
             $(this).addClass('hidden');
         }
     });
 });
 </script>
-@endpush
+@endsection

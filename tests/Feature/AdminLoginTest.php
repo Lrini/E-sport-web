@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\admin;
+use App\Models\Admin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -37,7 +37,7 @@ class AdminLoginTest extends TestCase
      */
     public function test_login_succeeds_for_admin_role()
     {
-        $admin = admin::factory()->create([
+        $admin = Admin::factory()->create([
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
             'role' => 'admin',
@@ -57,10 +57,10 @@ class AdminLoginTest extends TestCase
      */
     public function test_login_succeeds_for_ticket_role()
     {
-        $ticket = admin::factory()->create([
+        $ticket = Admin::factory()->create([
             'email' => 'ticket@example.com',
             'password' => bcrypt('password'),
-            'role' => 'ticket',
+            'role' => 'tiket',
         ]);
 
         $response = $this->post('/admin/login', [
@@ -77,7 +77,7 @@ class AdminLoginTest extends TestCase
      */
     public function test_login_fails_for_unknown_role()
     {
-        $unknown = admin::factory()->create([
+        $unknown = Admin::factory()->create([
             'email' => 'unknown@example.com',
             'password' => bcrypt('password'),
             'role' => 'unknown',
@@ -97,7 +97,7 @@ class AdminLoginTest extends TestCase
      */
     public function test_show_login_form_redirects_if_authenticated()
     {
-        $admin = admin::factory()->create([
+        $admin = Admin::factory()->create([
             'role' => 'admin',
         ]);
 
