@@ -16,6 +16,19 @@
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">  
             </div>
             <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" name="email" id="email"    value="{{ old('email', $admin->email) }}" required
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">
+            </div>
+            <div>
+                <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                <select name="role" id="role" required
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">
+                    <option value="admin" {{ old('role', $admin->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                    <option value="tiket" {{ old('role', $admin->role) == 'tiket' ? 'selected' : '' }}>Tiket</option>
+                </select>
+            </div>
+            <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">password</label>
                 <input type="text" name="password" id="password"    value="{{ old('password', $admin->password) }}" required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">  

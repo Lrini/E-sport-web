@@ -30,6 +30,7 @@
                     <tr>
                         <th class="w-1/4 px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Nama</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Email</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Role</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
                     </tr>
                 </thead>
@@ -162,6 +163,7 @@ $(function() {
         columns: [
             { data: 'name', name: 'nama', width: '20%' },
             { data: 'email', name: 'email', width: '25%' },
+            { data: 'role', name:'role', width: '25%'},
             {
                 data: null,
                 name: 'aksi',

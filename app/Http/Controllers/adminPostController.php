@@ -24,11 +24,12 @@ class adminPostController extends Controller
      */
     public function getdata()
     {
-        $admins = User::where('role', 'admin')->get()->map(function ($admin) {
+        $admins = User::get()->map(function ($admin) {
             return [
                 'id' => $admin->id,
                 'name' => $admin->name,
                 'email' => $admin->email,
+                'role' => $admin->role,
             ];
         });
         return response()->json(['data' => $admins]);
@@ -94,6 +95,9 @@ class adminPostController extends Controller
     {
         $admin = User::findOrFail($id);
         $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $admin->id,
+            'role' => 'required|string|in:admin,tiket',
             'password' => 'required|string|min:8',
         ]);
         $validatedData['password'] = bcrypt($validatedData['password']);

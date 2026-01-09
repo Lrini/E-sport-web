@@ -28,6 +28,15 @@
                     class="w-full px-4 py-3 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                 <p class="text-sm text-red-500 hidden mt-1" id="email-error"></p>
             </div>
+            <!-- role-->
+            <label for="role" class="block text-sm font-medium text-foreground mb-2">Role *</label>
+            <select id="role" name="role"
+                class="form-control @error('role') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                required>
+                <option value="">Select a role</option>
+                <option value="admin">Admin</option>
+                <option value="tiket">Tiket</option>
+            </select>
              <!-- Password -->
             <div>
                 <label for="password" class="block text-sm font-medium text-foreground mb-2">Password*</label>
