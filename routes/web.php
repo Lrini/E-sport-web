@@ -48,6 +48,11 @@ Route::get('/support', function () {
     return view('support', compact('lombas', 'acaras'));
 });
 
+//route untuk halaman sportschedule
+Route::get('/sportschedule', function () {
+    return view('sportschedule');
+});
+
 //route untuk mengirim data support ke database menggunakan controller PenontonPostController
 Route::post('/support', [PenontonPostController::class, 'store']);
 

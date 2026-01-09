@@ -75,7 +75,7 @@
                             <path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z"/>
                         </svg>
                     </div>
-                    <h3 class="font-semibold text-[hsl(222,47%,11%)]">Futsal</h3>
+                    <a href="/sportschedule" class="px-4 py-2 font-medium text-teal-600 ">Futsal</a>
                 </div>
                 
                 <!-- Basketball -->
@@ -123,6 +123,7 @@
                     <h3 class="font-semibold text-[hsl(222,47%,11%)]">Badminton</h3>
                 </div>
             </div>
+            
         </section>
         
         <!-- Call to Action -->
