@@ -11,6 +11,7 @@ use App\Http\Controllers\PesertaPostController;
 use App\Http\Controllers\PenontonPostController;
 use App\Http\Controllers\GradePostController;
 use App\Http\Controllers\GoogleDriveController;
+use App\Http\Controllers\JadwalAcaraController;
 use Google\Client;
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,8 @@ use Google\Client;
 */
 // route untuk halaman utama
 Route::get('/', function () {
-    return view('index');
+    $lombas = lomba::all();
+    return view('index', compact('lombas'));
 });
 
 
@@ -48,10 +50,8 @@ Route::get('/support', function () {
     return view('support', compact('lombas', 'acaras'));
 });
 
-//route untuk halaman sportschedule
-Route::get('/sportschedule', function () {
-    return view('sportschedule');
-});
+//route untuk halaman sportschedule - using controller to fetch events
+Route::get('/sportschedule/{uuid?}', [JadwalAcaraController::class, 'index']);
 
 //route untuk mengirim data support ke database menggunakan controller PenontonPostController
 Route::post('/support', [PenontonPostController::class, 'store']);
@@ -113,5 +113,3 @@ Route::get('admin/tiketing/penonton', function () {
     return view('admin.tiketing.penonton.index');
 })->name('admin.tiketing.penonton')->middleware(['auth:tiket', 'isticket']);
 Route::get('admin/tiketing/penonton/data',[CheckinController::class, 'getdata'])->name('tiketing.penonton.data')->middleware(['auth:tiket', 'isticket']);
-
-

@@ -67,63 +67,18 @@
             <h2 class="text-4xl font-bold text-center mb-12 text-[hsl(222,47%,11%)]">Available Competion</h2>
             
             <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
-                <!-- Futsal -->
-                <div class="p-6 text-center transition-transform cursor-pointer gradient-card rounded-xl hover:scale-105">
-                    <div class="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-white rounded-full">
-                        <svg class="w-10 h-10 text-[hsl(217,91%,60%)]" fill="currentColor" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                            <path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z"/>
-                        </svg>
+                @foreach ($lombas as $lomba)
+                    <div class="p-6 text-center transition-transform cursor-pointer gradient-card rounded-xl hover:scale-105">
+                        <div class="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-white rounded-full">
+                            <svg class="w-10 h-10 text-[hsl(217,91%,60%)]" fill="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z"/>
+                            </svg>
+                        </div>
+                        <a href="/sportschedule/{{ $lomba->uuid }}" class="px-4 py-2 font-medium text-teal-600 ">{{ $lomba->nama_lomba }}</a>
                     </div>
-                    <a href="/sportschedule" class="px-4 py-2 font-medium text-teal-600 ">Futsal</a>
-                </div>
-                
-                <!-- Basketball -->
-                <div class="p-6 text-center transition-transform cursor-pointer gradient-card rounded-xl hover:scale-105">
-                    <div class="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-white rounded-full">
-                        <svg class="w-10 h-10 text-[hsl(27,96%,61%)]" fill="currentColor" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                            <path d="M2 12 Q12 2 22 12" fill="none" stroke="currentColor" stroke-width="1"/>
-                            <path d="M2 12 Q12 22 22 12" fill="none" stroke="currentColor" stroke-width="1"/>
-                        </svg>
-                    </div>
-                    <h3 class="font-semibold text-[hsl(222,47%,11%)]">Basketball</h3>
-                </div>
-                
-                <!-- Volleyball -->
-                <div class="p-6 text-center transition-transform cursor-pointer gradient-card rounded-xl hover:scale-105">
-                    <div class="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-white rounded-full">
-                        <svg class="w-10 h-10 text-[hsl(142,76%,36%)]" fill="currentColor" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                            <line x1="12" y1="2" x2="12" y2="22" stroke="currentColor" stroke-width="1"/>
-                            <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1"/>
-                        </svg>
-                    </div>
-                    <h3 class="font-semibold text-[hsl(222,47%,11%)]">Volleyball</h3>
-                </div>
-                
-                <!-- Athletics -->
-                <div class="p-6 text-center transition-transform cursor-pointer gradient-card rounded-xl hover:scale-105">
-                    <div class="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-white rounded-full">
-                        <svg class="w-10 h-10 text-[hsl(217,91%,60%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-semibold text-[hsl(222,47%,11%)]">Athletics</h3>
-                </div>
-                
-                <!-- Badminton -->
-                <div class="p-6 text-center transition-transform cursor-pointer gradient-card rounded-xl hover:scale-105">
-                    <div class="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-white rounded-full">
-                        <svg class="w-10 h-10 text-[hsl(27,96%,61%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <circle cx="12" cy="8" r="3" stroke-width="2"/>
-                            <line x1="12" y1="11" x2="12" y2="21" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3 class="font-semibold text-[hsl(222,47%,11%)]">Badminton</h3>
-                </div>
+                @endforeach
             </div>
-            
         </section>
         
         <!-- Call to Action -->

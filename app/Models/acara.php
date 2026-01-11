@@ -9,12 +9,29 @@ use App\Models\lomba;
 class acara extends Model
 {
     use HasFactory;
-    // guarded digunakan untuk melindungi field id agar tidak bisa diisi secara massal
-     protected $guarded = ['id'];
-    // Cast tanggal_acara to date
+    
+    protected $guarded = ['id'];
+    
+    // Cast fields to proper types
     protected $casts = [
         'tanggal_acara' => 'date',
+        'status_acara' => 'string',
+        'biaya' => 'integer',
+        'id_lomba' => 'integer',
+        'uuid' => 'integer',
     ];
+    
+    // Ensure these fields are always accessible
+    protected $fillable = [
+        'uuid',
+        'id_lomba',
+        'nama_acara',
+        'tanggal_acara',
+        'keterangan',
+        'biaya',
+        'status_acara',
+    ];
+    
     // relasi many to one antara acara dan lomba
     public function lomba()
     {

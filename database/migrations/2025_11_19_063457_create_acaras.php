@@ -21,6 +21,7 @@ class CreateAcaras extends Migration
             $table->date('tanggal_acara');
             $table->string('keterangan');
             $table->integer('biaya');
+            $table->enum('status_acara',['scheduled','ongoing','finished'])->default('scheduled');
             $table->timestamps();
         });
     }

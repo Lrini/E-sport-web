@@ -61,6 +61,18 @@
                     <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
             </div>
+            <!-- Status Acara -->
+            <div>
+                <label for="status_acara" class="block text-sm font-medium text-foreground mb-2">Status Acara *</label>
+                <select id="status_acara" name="status_acara"
+                    class="form-control @error('status_acara') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                    required>
+                    <option value="">Select a status</option>
+                    <option value="scheduled">Schedule</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="finished">Finished</option>
+                </select>
+            </div>
 
             <!-- Submit Button -->
             <div class="flex gap-3 pt-4">

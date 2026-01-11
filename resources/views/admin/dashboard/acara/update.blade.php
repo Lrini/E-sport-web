@@ -25,6 +25,17 @@
                 <textarea name="keterangan" id="keterangan" rows="4" required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary focus:border-primary">{{ old('keterangan', $acara->keterangan) }}</textarea>    
             </div>
+            <div>
+                <label for="status_acara" class="block text-sm font-medium text-foreground mb-2">Status Acara *</label>
+                <select id="status_acara" name="status_acara"
+                    class="form-control @error('status_acara') is-invalid @enderror w-full px-4 py-3 border-2 border-[hsl(214,32%,91%)] rounded-lg focus:outline-none focus:border-[hsl(217,91%,60%)] transition-colors"
+                    required>
+                    <option value="">Select a status</option>
+                    <option value="scheduled">Schedule</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="finished">Finished</option>
+                </select>
+            </div>
             <div class="flex justify-end space-x-4">
                 <a href="{{ route('acara.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200">
                     Batal

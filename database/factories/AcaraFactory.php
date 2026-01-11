@@ -20,6 +20,7 @@ class AcaraFactory extends Factory
             'tanggal_acara' => $this->faker->date(),
             'keterangan' => $this->faker->sentence(),
             'biaya' => $this->faker->numberBetween(10000, 50000),
+            'status_acara' => $this->faker->randomElement(['scheduled', 'ongoing', 'finished']),
         ];
     }
 }

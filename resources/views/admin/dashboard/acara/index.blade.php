@@ -32,6 +32,7 @@
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Nama Acara</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Tanggal Acara</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-left uppercase border-b text-muted-foreground">Keterangan</th>
+                        <th class="w-1/6 px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Status Acara</th>
                         <th class="px-4 py-3 text-xs font-medium tracking-wider text-center uppercase border-b text-muted-foreground">Aksi</th>
                     </tr>
                 </thead>
@@ -166,6 +167,7 @@ $(function() {
             { data: 'nama_acara', name: 'nama_acara', width: '25%' },
             { data: 'tanggal_acara', name: 'tanggal_acara', width: '20%' },
             { data: 'keterangan', name: 'keterangan', width: '25%' },
+            { data: 'status_acara', name: 'status_acara', width: '10%' },
             {
                 data: null,
                 name: 'aksi',

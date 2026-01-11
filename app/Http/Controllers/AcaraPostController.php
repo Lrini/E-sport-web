@@ -29,6 +29,7 @@ class AcaraPostController extends Controller
                 'nama_acara' => $acara->nama_acara,
                 'tanggal_acara' => $acara->tanggal_acara->format('Y-m-d'),
                 'keterangan' => $acara->keterangan,
+                'status_acara' => $acara->status_acara,
             ];
         });
         return response()->json(['data' => $acaras]);
@@ -59,6 +60,7 @@ class AcaraPostController extends Controller
             'tanggal_acara' => 'required|date',
             'keterangan' => 'required|string|max:255',
             'biaya' => 'required|integer|min:0',
+            'status_acara' => 'required|in:scheduled,ongoing,finished',
         ]);
 
          // Generate a unique uuid
@@ -111,6 +113,7 @@ class AcaraPostController extends Controller
             'nama_acara' => 'required|string|max:255',
             'tanggal_acara' => 'required|date',
             'keterangan' => 'required|string|max:255',
+            'status_acara' => 'required|in:scheduled,ongoing,finished',
         ]);
 
         $acara->update($validatedData);
