@@ -12,6 +12,7 @@ use App\Http\Controllers\PenontonPostController;
 use App\Http\Controllers\GradePostController;
 use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\JadwalAcaraController;
+use App\Http\Controllers\tiketPdfController;
 use Google\Client;
 /*
 |--------------------------------------------------------------------------
@@ -113,3 +114,7 @@ Route::get('admin/tiketing/penonton', function () {
     return view('admin.tiketing.penonton.index');
 })->name('admin.tiketing.penonton')->middleware(['auth:tiket', 'isticket']);
 Route::get('admin/tiketing/penonton/data',[CheckinController::class, 'getdata'])->name('tiketing.penonton.data')->middleware(['auth:tiket', 'isticket']);
+
+
+
+Route::get('admin/pdf/{id}', [tiketPdfController::class, 'show']);
