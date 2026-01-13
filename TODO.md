@@ -1,0 +1,1 @@
+- [x] Update tiketPdfController.php to save PDF directly to public/tiket folder using file_put_contents and public_path, ensuring the directory exists.

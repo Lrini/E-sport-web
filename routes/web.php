@@ -117,4 +117,5 @@ Route::get('admin/tiketing/penonton/data',[CheckinController::class, 'getdata'])
 
 
 
-Route::get('admin/pdf/{id}', [tiketPdfController::class, 'show']);
+//Route::get('admin/pdf/{id}', [tiketPdfController::class, 'show']);
+Route::get('admin/pdf/{id}', [tiketPdfController::class, 'generatePdf'])->name('admin.pdf')->middleware(['auth:admin', 'isadmin']);

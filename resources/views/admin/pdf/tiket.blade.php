@@ -2,34 +2,36 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Tiket Event</title>
+    <title>Tiket Penonton</title>
     <style>
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: sans-serif;
             text-align: center;
         }
         .box {
-            border: 2px dashed #000;
+            border: 2px solid #000;
             padding: 20px;
-            margin-top: 20px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
-<h2>TIKET RESMI EVENT</h2>
-
 <div class="box">
-    <p><strong>Nama Penonton:</strong><br>{{ $penonton->nama }}</p>
+    <h2>TIKET PENONTON</h2>
 
-    <p><strong>Acara:</strong><br>{{ $penonton->acara->nama_acara }}</p>
+    <p><strong>Nama:</strong> {{ $penonton->nama_lengkap }}</p>
+    <p><strong>Acara:</strong> {{ $penonton->acara->nama_acara }}</p>
+    <p><strong>Tanggal:</strong> {{ $penonton->acara->tanggal_acara }}</p>
 
-    <p><strong>Tanggal:</strong><br>{{ $penonton->acara->tanggal_acara }}</p>
+    <br>
 
-    <p><strong>Kode Tiket:</strong><br>{{ $penonton->ticket_code }}</p>
+    <img src="data:image/png;base64,{{ $qr }}" width="200">
+
+    <p><strong>Kode Tiket:</strong> {{ $penonton->tiket_code }}</p>
+
+    <small>Harap tunjukkan QR Code saat check-in</small>
 </div>
-
-<p>Harap simpan tiket ini dan tunjukkan saat check-in.</p>
 
 </body>
 </html>

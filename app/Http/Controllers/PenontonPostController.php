@@ -102,7 +102,7 @@ class PenontonPostController extends Controller
 
     public function update(Request $request, $id)
     {
-        $penonton = penonton::findOrFail($id);
+          $penonton = Penonton::findOrFail($id);
 
         $validatedData = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
@@ -111,28 +111,42 @@ class PenontonPostController extends Controller
             'id_acara' => 'required|integer|exists:acaras,id',
             'no_hp' => 'required|string|max:15',
             'biaya_tiket' => 'nullable|numeric|min:0',
-            'status_pembayaran' => 'required|string|in:pending,lunas,batal',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status_pembayaran' => 'required|in:pending,lunas,batal',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        // Handle file upload if present
+        // Upload bukti bayar (tetap)
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($penonton->image && Storage::disk('public')->exists($penonton->image)) {
-                Storage::disk('public')->delete($penonton->image);
-            }
-            $imagePath = $request->file('image')->store('bukti_tonton', 'public');
-            $validatedData['image'] = $imagePath;
+            $validatedData['image'] =
+            $request->file('image')->store('bukti_tonton', 'public');
         }
 
-        if ($penonton->status_pembayaran !== 'lunas'){
-            $penonton->tiket_code = $this->generateTiketCode();
+        //  CEK PERUBAHAN STATUS
+         $statusSebelum = $penonton->status_pembayaran;
+
+        // Generate tiket code jika belum ada
+        if (!$penonton->tiket_code && $validatedData['status_pembayaran'] === 'lunas') {
+             $penonton->tiket_code = $this->generateTiketCode();
             $penonton->tiket_generated_at = now();
+            $penonton->save();
         }
 
-        $penonton->update($validatedData);
+        // Update data utama
+         $penonton->update($validatedData);
 
-        return redirect()->route('penonton.index')->with('success', 'Penonton berhasil diperbarui.');
+        // JIKA BARU SAJA JADI LUNAS → BUAT PDF
+        if ($statusSebelum !== 'lunas' && $validatedData['status_pembayaran'] === 'lunas') {
+             $pdfController = new tiketPdfController();
+            $pdfPath = $pdfController->generate($penonton);
+
+            // Simpan path PDF ke DB
+             $penonton->update([
+               'tiket_pdf' => $pdfPath
+             ]);
+        }
+
+        return redirect()->route('penonton.index')
+                 ->with('success', 'Penonton berhasil diperbarui');
     }
 
     public function destroy($id)
